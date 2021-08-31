@@ -1,0 +1,72 @@
+// main color
+
+$color-main: #07003b;
+//$color-second: #f6f7f9;
+//$color-second: #f1f1f6;
+$color-second: #f2f2f8;
+$color-third: #FFFFFF;
+
+$color-green: #05F280;
+$color-darkGreen: #07d06d;
+$color-red: #FF0005;
+$color-lightBlue: #0CCEEB;
+
+// used color
+$title-dark: $color-main;
+$title-light: $color-second;
+$title-verySoft: $color-third;
+
+$text-dark: $color-main;
+$text-light: $color-second;
+$text-verySoft: $color-third;
+
+$color-dark: $color-main;
+$color-verySoft: $color-third;
+
+$background-dark: $color-main;
+$background-light: $color-second;
+$background-verySoft: $color-third;
+
+$button-submit: $color-green;
+$button-submit-hover: $color-darkGreen;
+$error-message: $color-red;
+$date-color: $color-lightBlue;
+$star-color: $color-red;
+
+//gen class
+
+.bg_color--dark {
+  background-color: $background-dark;
+}
+
+.bg_color--light {
+  background-color: $background-light;
+}
+
+.bg_color--veryLight {
+  background-color: $background-verySoft;
+}
+
+.title-dark {
+  color: $title-dark;
+}
+
+.title-light {
+  color: $title-light;
+}
+
+.title-verySoft {
+  color: $title-verySoft;
+}
+
+.text-dark {
+  color: $text-dark;
+}
+
+.text-light {
+  color: $text-light;
+}
+
+.text-verySoft {
+  color: $text-verySoft;
+}

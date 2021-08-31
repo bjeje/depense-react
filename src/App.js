@@ -1,24 +1,16 @@
-import logo from './logo.svg';
+import React from 'react';
+import {BrowserRouter as Router} from "react-router-dom";
+import MainRouter from "./Routes/MainRouter";
 import './App.css';
+import Bus from "./Utils/Bus";
 
-function App() {
+window.flash = (title, message, type = "success") => Bus.emit('flash', ({title, message, type}));
+
+function App({state}) {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <Router>
+        <MainRouter state={state}/>
+      </Router>
   );
 }
 
