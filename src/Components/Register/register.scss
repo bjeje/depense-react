@@ -1,0 +1,103 @@
+@import "src/Scss/Colors";
+
+%gender {
+    width: 18px;
+    height: 18px;
+    border-radius: 15px;
+    top: -2px;
+    left: -1px;
+    position: relative;
+    content: '';
+    display: inline-block;
+    visibility: visible;
+    border: 2px solid $background-dark;
+}
+
+.Register_page {
+    background-position: center;
+    background-size: cover;
+    background-color: $background-light;
+}
+
+.star {
+    color: $star-color;
+    font-weight: bold;
+}
+
+.Register_main {
+    border-radius: 10px;
+}
+.Register_connectBtn {
+    color: $text-verySoft;
+    background-color: $background-dark;
+    text-decoration: none;
+    border-radius: 10px 0 10px 0;
+}
+
+.Register_connectBtn:hover {
+    //color: #a2c8da;
+    color: $color-lightBlue;
+}
+
+.register_label {
+    color: #07003b;
+}
+
+.Register_input {
+    border-radius: 0;
+    border: none;
+    border-bottom: 1px solid $color-dark ;
+    color: $text-dark;
+}
+.Register_input:focus {
+    outline: none;
+    box-shadow: none;
+    border-bottom: 1px solid $color-dark;
+}
+.form-control.is-invalid:focus, .was-validated .form-control:invalid:focus {
+    box-shadow: none;
+}
+.form-control.is-valid:focus, .was-validated .form-control:valid:focus {
+    box-shadow: none;
+}
+#Register_birth::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+    padding-right: 40px;
+    padding-bottom: 15px;
+}
+#Register_GenderInput--style input[type='radio']:after {
+    @extend %gender;
+    background-color: white;
+}
+#Register_GenderInput--style input[type='radio']:checked:after {
+    @extend %gender;
+    background-color: $background-dark;
+}
+
+.btn-submit {
+    background-color: $button-submit;
+    &:hover {
+        background-color: $button-submit-hover;
+    }
+}
+
+.sentence {
+    font-family: 'Montserrat', serif;
+    font-style: italic;
+    padding-left: 0.5em;
+    text-shadow: 2px 2px 5px whitesmoke;
+    font-size: 1.5rem;
+    color: $text-dark;
+}
+
+/* Navigateur */
+
+//text auto-select in input
+
+.Register_input:-webkit-autofill,
+.Register_input:-webkit-autofill:hover,
+.Register_input:-webkit-autofill:focus,
+.Register_input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+    -webkit-text-fill-color: $text-dark !important;
+}
