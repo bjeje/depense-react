@@ -7,6 +7,30 @@
   pointer-events: none;
 }
 
+/* Gloabal class */
+
+/* Global color */
+
+/*.global_bgColor--darkSky {*/
+/*  background-color: #07003b;*/
+/*}*/
+
+/*.global_bgColor--charcoal {*/
+/*  background-color: #07003b;*/
+/*}*/
+/*.global_bgColor--white {*/
+/*  background-color: #FFF;*/
+/*}*/
+/*.global_bgColor--whiteSmoke {*/
+/*  background-color: #f6f7f9;*/
+/*}*/
+/*.global_bgColor--orange {*/
+/*  background-color: #F18701;*/
+/*}*/
+/*.global_fontColor--whiteSmoke {*/
+/*  color: #EFEFEF;*/
+/*}*/
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
