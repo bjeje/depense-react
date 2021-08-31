@@ -289,9 +289,9 @@ class Register extends Component {
         return (
             <Fragment>
                 <div className="Register_page d-flex row font_cabin justify-content-center m-0 pb-5">
-                    <div className="col-6 text-white">
+                    <div className="col-sm-12 col-md-7 col-xl-6  text-white">
                         <div className="row justify-content-center">
-                            <div className="col-8 bg_color--veryLight Register_main mt-5 pb-5">
+                            <div className="col-8 col-md-10 col-lg-8 bg_color--veryLight Register_main mt-5 pb-5">
                                 <div className="row font_montserrat text-center fs-4">
                                     <Link className="col-6 Register_connectBtn pt-2 pb-2" to="/login">Connexion</Link>
                                     <div className="col-6 register_label pt-2 pb-2">Inscription</div>
@@ -375,9 +375,11 @@ class Register extends Component {
                             </div>
                         </div>
                     </div>
-                    <div className="col-6 align-self-center">
-                        <Link to="/" className="navbar-brand p-0"><img src={process.env.PUBLIC_URL + logoEtLabel } alt="Logo de budget"/></Link>
-                        <p className="sentence">Votre gestion de budget</p>
+                    <div className="d-none d-md-block col-md-5 col-xl-6 align-self-center">
+                        <div className={""}>
+                            <Link to="/" className="navbar-brand p-0"><img className={"img-fluid"} src={process.env.PUBLIC_URL + logoEtLabel } alt="Logo de budget"/></Link>
+                            <p className="sentence">Votre gestion de budget</p>
+                        </div>
                     </div>
                 </div>
             </Fragment>
