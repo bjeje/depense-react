@@ -211,11 +211,6 @@ class Register extends Component {
             //     validate.birth = true;
             // }
         }
-        validate.login = true;
-        validate.email = true;
-        validate.password = true;
-        validate.firstName = true;
-        validate.lastName = true;
         return !(validate.login === false || validate.email === false || validate.password === false || validate.firstName === false || validate.lastName === false)
     }
 
