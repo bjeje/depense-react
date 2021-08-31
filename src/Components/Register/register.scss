@@ -27,6 +27,7 @@
 .Register_main {
     border-radius: 10px;
 }
+
 .Register_connectBtn {
     color: $text-verySoft;
     background-color: $background-dark;
@@ -75,6 +76,7 @@
 }
 
 .btn-submit {
+    min-width: 7.5em;
     background-color: $button-submit;
     &:hover {
         background-color: $button-submit-hover;

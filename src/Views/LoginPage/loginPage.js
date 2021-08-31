@@ -1,13 +1,13 @@
 import React from "react";
 import {Component, Fragment} from "react";
-import Register from "../../Components/Register/register";
+import Login from "../../Components/Login/login";
 
-export default class RegisterPage extends Component {
+export default class LoginPage extends Component {
 
     render() {
         return(
             <Fragment>
-                <Register/>
+                <Login/>
             </Fragment>
         )
     }

@@ -18,6 +18,7 @@ export const userConstants = {
         ADDRESS_ERROR: 'Adresse incorrecte',
         ADMIN_ERROR: 'Statut incorrect',
         SIGNUP_ERROR: 'Une erreur est survenue contacter l\'admin',
-        SIGNIN_ERROR: 'Vos identifiants sont incorrect'
+        SIGNIN_ERROR: 'Vos identifiants sont incorrect',
+        SIGNIN_EMPTY: 'Vous devez remplir Login et Mot de passe'
     },
 }
