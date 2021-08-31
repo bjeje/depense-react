@@ -118,8 +118,8 @@ export default class Login extends Component {
                             </div>
                         </div>
                     </div>
-                    <div className="d-none d-md-block col-md-5 col-xl-6 align-self-center text-center">
-                        <Link to="/" className="navbar-brand p-0"><img className={"img-fluid"} src={process.env.PUBLIC_URL + logoEtLabel } alt="Logo de budget"/></Link>
+                    <div className="d-none d-md-block col-md-4 col-xl-5 align-self-center text-center">
+                        <Link to="/" className="navbar-brand p-0"><img className={"img-fluid logo-disconnect"} src={process.env.PUBLIC_URL + logoEtLabel } alt="Logo de budget"/></Link>
                         <p className="sentence">Votre gestion de budget</p>
                     </div>
                 </div>
