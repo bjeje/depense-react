@@ -7,6 +7,7 @@ import PrivateRoute from "../Components/PrivateRoute/PrivateRoute";
 
 //import Page
 import RegisterPage from "../Views/RegisterPage/registerPage";
+import LoginPage from "../Views/LoginPage/loginPage";
 
 export default class MainRouter extends Component {
 
@@ -34,9 +35,9 @@ export default class MainRouter extends Component {
                     {this.state.route === "/login" ? null : this.state.route === "/register" ? null :
                         <Navbar/>
                     }
-
                     <Switch>
                         <Route path="/register" component={RegisterPage}/>
+                        <Route path="/login" component={LoginPage}/>
                     </Switch>
                 </Router>
             </Fragment>

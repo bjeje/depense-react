@@ -4,7 +4,7 @@ import './register.scss';
 import logoEtLabel from "../../Assets/logo/logoEtLabelSm.png";
 import ErrorFormLittle from "../error/ErrorFormLittle";
 import ErrorForm from "../error/ErrorForm";
-import {environement} from "../../Constants/environment";
+import {Environment} from "../../Constants/environment";
 import axios from "axios";
 import {userConstants} from "../../Constants/user/user.constants";
 
@@ -218,7 +218,7 @@ class Register extends Component {
         event.preventDefault();
         let valid = this.validateForm();
         if (valid === true) {
-            axios.post(environement.backBase + "/user/", {
+            axios.post(Environment.backBase + "/user/", {
                 login: this.state.login,
                 email: this.state.email,
                 password: this.state.password,
@@ -228,8 +228,7 @@ class Register extends Component {
                 birthday: this.state.birthday
             }).then( res => {
                 console.log(res)
-                this.setState({ success: res.data.message });
-                // this.setState({ redirection: true });
+                this.setState({ redirect: true });
             }).catch( error => {
                 console.log(error.response.data)
                 if( !error.response.success ) {
@@ -237,37 +236,37 @@ class Register extends Component {
                         switch (error.response.data.type) {
                             case "login":
                                 this.validLogin(false);
-                                this.setState({errorLogin: error.response.data.error})
+                                this.setState({ errorLogin: error.response.data.error })
                                 break;
                             case "email":
                                 this.validEmail(false);
-                                this.setState({errorEmail: error.response.data.error})
+                                this.setState({ errorEmail: error.response.data.error })
                                 break;
                             case "password":
                                 this.validPassword(false);
-                                this.setState({errorPassword: error.response.data.error})
+                                this.setState({ errorPassword: error.response.data.error })
                                 break;
                             case "firstName":
                                 this.validFirstname(false);
-                                this.setState({errorFirstname: error.response.data.error})
+                                this.setState({ errorFirstname: error.response.data.error })
                                 break;
                             case "lastName":
                                 this.validLastname(false);
-                                this.setState({errorLastname: error.response.data.error})
+                                this.setState({ errorLastname: error.response.data.error })
                                 break;
                             case "birth":
                                 this.validBirthday(false);
-                                this.setState({errorBirthday: error.response.data.error})
+                                this.setState({ errorBirthday: error.response.data.error })
                                 break;
                             default:
-                                this.setState({errorMsg: userConstants.userError.SIGNUP_ERROR})
+                                this.setState({ errorMsg: userConstants.userError.SIGNUP_ERROR })
                         }
                     } else {
                         if(typeof error.response.data.type.login === "boolean" && typeof error.response.data.type.email === "boolean") {
                             this.validLogin(false);
                             this.validEmail(false);
-                            this.setState({errorLogin: userConstants.userError.LOGIN_EXIST});
-                            this.setState({errorEmail: userConstants.userError.EMAIL_EXIST});
+                            this.setState({ errorLogin: userConstants.userError.LOGIN_EXIST });
+                            this.setState({ errorEmail: userConstants.userError.EMAIL_EXIST });
                         } else {
                             this.setState({ errorMsg: error.response.data.message });
                         }
@@ -278,7 +277,7 @@ class Register extends Component {
     }
 
     render() {
-        if(this.state.redirect === true || localStorage.getItem('depenseToken')){
+        if(this.state.redirect === true){
             return <Redirect to="/login" />
         }
         return (
