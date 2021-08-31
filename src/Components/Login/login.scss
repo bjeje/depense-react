@@ -1,0 +1,41 @@
+@import "src/Scss/Colors";
+
+.Login_page{
+  background-color: $background-light;
+  background-position: center;
+  background-size: cover;
+  height: 100vh;
+  width: 100vw;
+}
+.Login_main {
+  border-radius: 10px;
+  background-color: $background-verySoft;
+}
+.Login_input {
+  border-radius: 0;
+  border: none;
+  border-bottom: 1px solid $color-dark;
+  background-color: $background-verySoft;
+}
+.Login_input:focus {
+  border-bottom: 1px solid $color-dark;
+  background-color: $background-verySoft;
+  outline: none;
+  box-shadow: none;
+}
+.Login_registerBtn {
+  color: $text-verySoft;
+  background-color: $background-dark;
+  text-decoration: none;
+  border-radius: 0 10px 0 10px;
+}
+.Login_registerBtn:hover {
+  color: $color-lightBlue;
+}
+.Login_input:-webkit-autofill,
+.Login_input:-webkit-autofill:hover,
+.Login_input:-webkit-autofill:focus,
+.Login_input:-webkit-autofill:active {
+  transition: background-color 5000s ease-in-out 0s;
+  -webkit-text-fill-color: $text-dark !important;
+}
