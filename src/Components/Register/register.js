@@ -70,74 +70,68 @@ class Register extends Component {
         this.setState({birthday: event.target.value});
     }
 
+    displayTrue(inputID) {
+        let element = document.getElementById(inputID)
+        element.classList.add('is-valid');
+        element.classList.remove('is-invalid');
+    }
+
+    displayFalse(inputID) {
+        let element = document.getElementById(inputID)
+        element.classList.remove('is-valid');
+        element.classList.add('is-invalid');
+    }
+
     validateEmail(email) {
         const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(String(email).toLowerCase());
     }
 
     validLogin(valid) {
-        let loginInput = document.getElementById('Register_login');
         if(!valid) {
-            loginInput.classList.add("is-invalid");
-            loginInput.classList.remove("is-valid");
+            this.displayFalse('Register_login');
         } else {
-            loginInput.classList.remove("is-invalid");
-            loginInput.classList.add("is-valid");
+            this.displayTrue('Register_login');
         }
     }
 
     validEmail(valid) {
-        let emailInput = document.getElementById('Register_email');
         if(!valid) {
-            emailInput.classList.add("is-invalid");
-            emailInput.classList.remove("is-valid");
+            this.displayFalse('Register_email');
         } else {
-            emailInput.classList.remove("is-invalid");
-            emailInput.classList.add("is-valid");
+            this.displayTrue('Register_email');
         }
     }
 
     validPassword(valid) {
-        let passwordInput = document.getElementById('Register_password');
         if(!valid) {
-            passwordInput.classList.add("is-invalid");
-            passwordInput.classList.remove("is-valid");
+            this.displayFalse('Register_password')
         } else {
-            passwordInput.classList.remove("is-invalid");
-            passwordInput.classList.add("is-valid");
+            this.displayTrue('Register_password');
         }
     }
 
     validFirstname(valid) {
-        let firstNameInput = document.getElementById('Register_firstName');
         if(!valid) {
-            firstNameInput.classList.add("is-invalid");
-            firstNameInput.classList.remove("is-valid");
+            this.displayFalse('Register_firstName');
         } else {
-            firstNameInput.classList.remove("is-invalid");
-            firstNameInput.classList.add("is-valid");
+            this.displayTrue('Register_firstName');
         }
     }
 
     validLastname(valid) {
-        let lastNameInput = document.getElementById('Register_lastName');
         if(!valid) {
-            lastNameInput.classList.add("is-invalid");
-            lastNameInput.classList.remove("is-valid");
+            this.displayFalse('Register_lastName')
         } else {
-            lastNameInput.classList.remove("is-invalid");
-            lastNameInput.classList.add("is-valid");
+            this.displayTrue('Register_lastName');
         }
     }
 
     validBirthday(valid) {
-        let birthdayInput = document.getElementById('Register_birthday');
         if(!valid) {
-            birthdayInput.classList.add("is-invalid");
-            birthdayInput.classList.remove("is-valid");
+            this.displayFalse('Register_birthday');
         } else {
-            birthdayInput.classList.remove("is-invalid");
-            birthdayInput.classList.add("is-valid");
+            this.displayTrue('Register_birthday')
         }
     }
 
@@ -324,8 +318,8 @@ class Register extends Component {
                                                 <label htmlFor="male" className="register_label ms-2 ">Homme</label>
                                             </div>
                                             <div className="col-4">
-                                                <input type='radio' name="gender" id="female" value={"female"} onChange={this.handleChangeGender}/>
-                                                <label htmlFor="female" className="register_label ms-2">Femme</label>
+                                                <input type='radio' name="gender" id="woman" value={"woman"} onChange={this.handleChangeGender}/>
+                                                <label htmlFor="woman" className="register_label ms-2">Femme</label>
                                             </div>
                                             <div className="col-4">
                                                 <input type='radio' name="gender" id="other" value={"other"} onChange={this.handleChangeGender}/>
