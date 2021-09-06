@@ -1,0 +1,19 @@
+@import "src/Scss/Colors";
+
+.bg-navbar {
+  background-color: $background-dark;
+}
+
+.logo-navbar {
+  height: 3em;
+}
+
+.last--link {
+  margin-right: 5em;
+}
+
+.imgProfile {
+  height: 3em;
+  border-radius: 50%;
+  margin-left: 1em;
+}
