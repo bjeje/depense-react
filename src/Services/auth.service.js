@@ -10,7 +10,7 @@ class AuthService {
 
     getCurrentAuth() {
         if(localStorage.getItem('depenseToken')) {
-            return localStorage.getItem('letShopToken');
+            return localStorage.getItem('depenseToken');
         } else {
             return false;
         }
