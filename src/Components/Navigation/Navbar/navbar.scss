@@ -1,0 +1,63 @@
+@import "src/Scss/Colors";
+
+.bg-navbar {
+  background-color: $background-dark;
+}
+
+.logo-navbar {
+  margin: 0 1em;
+  height: 3em;
+}
+
+.btn--seek {
+    margin-right: 4em;
+    color: $text-lightGreen;
+    border: 1px solid $color-green;
+  &:hover {
+    background-color: $color-darkGreen;
+    color: $text-verySoft;
+  }
+}
+
+.last--link {
+  margin-right: 5em;
+}
+
+.profile__firstname {
+  text-decoration: none;
+  color: $text-verySoft;
+  &:hover {
+    color: $text-hover;
+  }
+}
+
+.loader {
+  position: relative;
+  top: 0.5em;
+  height: 2.1em;
+}
+
+.imgProfile {
+  height: 3em;
+  border-radius: 50%;
+  margin-left: 1em;
+}
+
+//dropdown
+
+.icon--off, .icon--user {
+  padding-right: 0.35em;
+}
+
+
+.icon--user {
+  color: $color-darkGreen;
+}
+
+.icon--off {
+  color: $color-red;
+}
+
+.icon--admin {
+  color: $color-dark
+}
