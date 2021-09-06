@@ -1,12 +1,15 @@
 import React, {Component, Fragment} from 'react';
-import {Link} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 import './navbar.scss';
 import logoDepense from "../../../Assets/logo/logoDepense.png";
 import {bindActionCreators} from "redux";
 import {connect} from 'react-redux';
 import { getUser } from "../../../Redux/Actions/user.actions";
+import auth from "../../../Services/auth.service";
 import men from "../../../Assets/profil/men.jpg";
 import woman from "../../../Assets/profil/woman.jpg";
+import undefinedUser from "../../../Assets/profil/undefined-user.png";
+import loader from "../../../Assets/loader/loader.gif"
 
 class Navbar extends Component {
 
@@ -15,28 +18,28 @@ class Navbar extends Component {
         this.state = {
             imgWoman: woman,
             imgMen: men,
-            imgOther: "",
+            imgOther: undefinedUser,
+            redirect: false,
         }
-        this.goToLogin = this.goToLogin.bind(this)
+        this.disconnect = this.disconnect.bind(this);
     }
 
     componentDidMount() {
         this.props.getUser();
     }
 
-    goToLogin(event) {
-        event.preventDefault();
-        this.setState({goTo: "/login"})
+    disconnect() {
+        auth.logout();
+        this.setState({ redirect: true });
     }
 
     render() {
-        // changer le verif token par route Secure
-        let connected = localStorage.getItem('depenseToken');
+        if(this.state.redirect === true){
+            return <Redirect to="/login" />
+        }
 
         return (
-
-                <Fragment>
-                { connected ?
+            <Fragment>
                 <nav className="navbar navbar-expand-md navbar-light bg-navbar">
                     <div className="container-fluid">
                         <Link to={"/"}><img src={logoDepense} alt={"Logo"} className={"logo-navbar"}/></Link>
@@ -52,23 +55,32 @@ class Navbar extends Component {
                                     <button className="btn btn--seek" type="submit">Rechercher</button>
                             </form>
                         </div>
-                        <Link to={"/profile"} className={"last--link profile__firstname"}>{this.props.user.firstName}
-                            { this.props.user.gender === "male" ?
-                                <img src={this.state.imgMen} alt={"Profile"} className={"imgProfile"}/>:null
-                            }
-                            { this.props.user.gender === "woman" ?
-                                <img src={this.state.imgWoman} alt={"Profile"} className={"imgProfile"}/>:null
-                            }
-                            { this.props.user.gender === "other" ?
-                                <img src={this.state.imgWoman} alt={"Profile"} className={"imgProfile"}/>:null
-                            }
-                        </Link>
+                        {this.props.isLoading?
+                            <p>Chargement du profil <img src={loader} className={"loader"}></img></p>:null
+                        }
+                        <div className="dropdown">
+                            <a className="dropdown-toggle last--link profile__firstname" role="button"
+                               id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                {this.props.user.firstName}
+                                { this.props.user.gender === "male" ?
+                                    <img src={this.state.imgMen} alt={"Profile"} className={"imgProfile"}/>:null
+                                }
+                                { this.props.user.gender === "woman" ?
+                                    <img src={this.state.imgWoman} alt={"Profile"} className={"imgProfile"}/>:null
+                                }
+                                { this.props.user.gender === "other" ?
+                                    <img src={this.state.imgOther} alt={"Profile"} className={"imgProfile"}/>:null
+                                }
+                            </a>
+
+                            <ul className="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <li><a className="dropdown-item" onClick={this.disconnect}><i className="icon--off fas fa-power-off"/>Déconnexion</a></li>
+                                <li><Link to={"/user/profile"} className="dropdown-item"><i className="icon--user far fa-user"></i> Mon profil</Link></li>
+                                <li><Link to={"/user/manageUsers"} className="dropdown-item"><i className="icon--admin fas fa-users-cog"></i> Gestion user</Link></li>
+                            </ul>
+                        </div>
                     </div>
-                </nav> : null
-                }
-                    {this.props.isLoading?
-                        <p>Chargement du profil ...</p>:null
-                    }
+                </nav>
             </Fragment>
         )
     }

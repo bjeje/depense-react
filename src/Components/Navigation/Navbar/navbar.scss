@@ -31,8 +31,33 @@
   }
 }
 
+.loader {
+  position: relative;
+  top: 0.5em;
+  height: 2.1em;
+}
+
 .imgProfile {
   height: 3em;
   border-radius: 50%;
   margin-left: 1em;
+}
+
+//dropdown
+
+.icon--off, .icon--user {
+  padding-right: 0.35em;
+}
+
+
+.icon--user {
+  color: $color-darkGreen;
+}
+
+.icon--off {
+  color: $color-red;
+}
+
+.icon--admin {
+  color: $color-dark
 }
