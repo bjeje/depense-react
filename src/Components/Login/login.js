@@ -1,6 +1,6 @@
 import React, {Component, Fragment} from 'react';
 import './login.scss';
-import {Link, Redirect} from "react-router-dom";
+import {Link} from "react-router-dom";
 import Flash from "../Flash/flash";
 
 import logoEtLabel from "../../Assets/logo/logoEtLabelSm.png";
@@ -9,7 +9,7 @@ import {Environment} from "../../Constants/environment";
 import axios from "axios";
 import { userConstants } from "../../Constants/user/user.constants";
 
-export default class Login extends Component {
+class Login extends Component {
 
     constructor(props) {
         super(props)
@@ -65,6 +65,7 @@ export default class Login extends Component {
                 password: this.state.password,
             }).then( res => {
                 localStorage.setItem("depenseToken", res.data.token)
+
                 this.setState({ redirect: res.data.success });
 
             }).catch( error => {
@@ -82,7 +83,7 @@ export default class Login extends Component {
 
     render() {
         if(this.state.redirect === true){
-            return <Redirect to="/" />
+            window.location.href = "/";
         }
         return (
             <Fragment>
@@ -127,3 +128,5 @@ export default class Login extends Component {
         )
     }
 }
+
+export default Login;
