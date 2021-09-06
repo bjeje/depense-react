@@ -37,52 +37,44 @@ class Navbar extends Component {
 
                 <Fragment>
                 { connected ?
-                <nav className="navbar navbar-expand-lg navbar-light bg-navbar">
+                <nav className="navbar navbar-expand-md navbar-light bg-navbar">
                     <div className="container-fluid">
-                        <Link to={"/"}><img src={logoDepense} className={"logo-navbar"}/></Link>
+                        <Link to={"/"}><img src={logoDepense} alt={"Logo"} className={"logo-navbar"}/></Link>
                         <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
                                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                                 aria-expanded="false" aria-label="Toggle navigation">
                             <span className="navbar-toggler-icon"></span>
                         </button>
-                        <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                            <form className="d-flex">
-                                <input className="form-control me-2" type="search" placeholder="Search"
-                                       aria-label="Search"/>
-                                    <button className="btn btn-outline-success" type="submit">Search</button>
+                        <div className="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+                            <form className="d-flex ">
+                                    <input className="form-control me-2" type="search" placeholder="Rechercher"
+                                           aria-label="Search"/>
+                                    <button className="btn btn--seek" type="submit">Rechercher</button>
                             </form>
                         </div>
-                        <Link to={"/profile"} className={"last--link"}>{this.props.user.firstName}
+                        <Link to={"/profile"} className={"last--link profile__firstname"}>{this.props.user.firstName}
                             { this.props.user.gender === "male" ?
-                                <img src={this.state.imgMen} className={"imgProfile"}/>:null
+                                <img src={this.state.imgMen} alt={"Profile"} className={"imgProfile"}/>:null
                             }
                             { this.props.user.gender === "woman" ?
-                                <img src={this.state.imgWoman} className={"imgProfile"}/>:null
+                                <img src={this.state.imgWoman} alt={"Profile"} className={"imgProfile"}/>:null
                             }
                             { this.props.user.gender === "other" ?
-                                <img src={this.state.imgWoman} className={"imgProfile"}/>:null
+                                <img src={this.state.imgWoman} alt={"Profile"} className={"imgProfile"}/>:null
                             }
                         </Link>
                     </div>
                 </nav> : null
                 }
                     {this.props.isLoading?
-                        <p>je charge ...</p>:null
+                        <p>Chargement du profil ...</p>:null
                     }
-                <div>
-
-                    <p>hey</p> {this.props.user.firstName ?
-                    <p>{this.props.user.login}</p>:null
-                        }
-
-                </div>
             </Fragment>
         )
     }
 }
 
 const mapStateToProps = (state) => {
-    console.log(state)
     return {
         user: state.userReducer.user,
         isLoading: state.userReducer.isLoading,

@@ -5,11 +5,30 @@
 }
 
 .logo-navbar {
+  margin: 0 1em;
   height: 3em;
+}
+
+.btn--seek {
+    margin-right: 4em;
+    color: $text-lightGreen;
+    border: 1px solid $color-green;
+  &:hover {
+    background-color: $color-darkGreen;
+    color: $text-verySoft;
+  }
 }
 
 .last--link {
   margin-right: 5em;
+}
+
+.profile__firstname {
+  text-decoration: none;
+  color: $text-verySoft;
+  &:hover {
+    color: $text-hover;
+  }
 }
 
 .imgProfile {
