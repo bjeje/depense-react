@@ -1,7 +1,7 @@
 import { Redirect, Route} from "react-router-dom";
 import AuthService from "../../Services/auth.service";
 
-function PrivateRoute({ component: Component, ...restOfProps }) {
+function PrivateRouteAdmin({ component: Component, ...restOfProps }) {
     return (
         <Route
             {...restOfProps}
@@ -12,4 +12,4 @@ function PrivateRoute({ component: Component, ...restOfProps }) {
     );
 }
 
-export default PrivateRoute;
+export default PrivateRouteAdmin;
