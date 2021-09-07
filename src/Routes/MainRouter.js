@@ -40,7 +40,7 @@ export default class MainRouter extends Component {
                     <Switch>
                         <Route path="/register" component={RegisterPage}/>
                         <Route path="/login" component={LoginPage}/>
-                        <PrivateRouteUser exact path={"/profile"} component={ProfilePage}/>
+                        <PrivateRouteUser exact path={"/user/profile"} component={ProfilePage}/>
                         <PrivateRouteUser exact path={"/"} component={ProfilePage}/>
                     </Switch>
                 </Router>

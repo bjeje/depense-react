@@ -1,0 +1,59 @@
+@import "src/Scss/Colors";
+
+.main--bg {
+  background-color: $background-light;
+  min-height: 100vh;
+}
+
+.box__user {
+  background-color: $background-verySoft;
+  padding: 1em;
+  border-radius: 0.5em;
+}
+
+.tabs__profile {
+  width: 20%;
+  background: none;
+  border: none;
+  padding-bottom: 0.6em;
+  &:hover {
+    color: $text-hover
+  }
+  &:active {
+    border-bottom: 2px solid $color-dark;
+
+  }
+}
+
+.border--simple {
+  color: #41464b;
+  margin: 0;
+}
+
+.active--profile {
+  border-bottom: 2px solid $color-dark;
+}
+
+.icon--profile {
+  padding-right: 0.35em;
+}
+
+.viewProfile--icon , #my_profile:hover {
+  color: $color-green;
+}
+
+.edit--icon, #edit_profile:hover {
+ color: $color-purple
+}
+
+.email--icon {
+  color: $color-lightBlue
+}
+
+.history--icon, #log_history:hover{
+ color: $color-wellow;
+}
+
+.delete--icon, #delete_user:hover {
+ color: $color-red
+}
