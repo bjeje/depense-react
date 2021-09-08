@@ -1,5 +1,11 @@
 @import "src/Scss/Colors";
 
+@mixin noContent{
+  @media screen and (max-width: 576px) {
+    content: "";
+  }
+}
+
 .main--bg {
   background-color: $background-light;
   min-height: 100vh;
@@ -21,7 +27,6 @@
   }
   &:active {
     border-bottom: 2px solid $color-dark;
-
   }
 }
 
@@ -56,4 +61,55 @@
 
 .delete--icon, #delete_user:hover {
  color: $color-red
+}
+
+.icon--profile {
+  padding-right: 0.35em;
+}
+
+#my_profile::after {
+  font-size: 17px;
+  content: " Mon Profil";
+  @media screen and (max-width: 992px) {
+    content: " Profil";
+  }
+  @include noContent;
+}
+
+#edit_profile::after {
+  content: " Editer le profil";
+  @media screen and (max-width: 992px) {
+    content: " Editer";
+  }
+  @include noContent;
+}
+
+#verif_email::after {
+  content: " Vérif.Email";
+  @media screen and (max-width: 992px) {
+    content: " Email";
+  }
+  @include noContent;
+}
+
+#log_history::after {
+  content: " Historique log";
+  @media screen and (max-width: 992px) {
+    content: " Historique";
+  }
+  @media screen and (max-width: 768px) {
+    content: " Histo.";
+  }
+  @include noContent;
+}
+
+#delete_user::after {
+  content: " Supprimer";
+  @media screen and (max-width: 992px) {
+    content: " Suppr.";
+  }
+  @media screen and (max-width: 992px) {
+    content: " Supp.";
+  }
+  @include noContent;
 }

@@ -3,6 +3,7 @@ import './tabsProfile.scss';
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import {getUser} from "../../Redux/Actions/user.actions";
+import MyProfile from "./MyProfile/myProfile";
 
 class TabsProfile extends Component {
 
@@ -133,38 +134,39 @@ class TabsProfile extends Component {
                     <div className={"container"}>
                         <div className={"col-12"}>
                             <div className={"row"}>
-                                <div className={"col-10 offset-1 box__user mt-5"}>
+                                <div className={"col-10 offset-1 box__user mt-5 mb-5"}>
                                     <div className={"row"}>
                                         <div className={"col-12"}>
                                             <nav>
                                                 <div className={"box__tabs"}>
                                                     <button id={"my_profile"} className={"tabs__profile active--profile"} onClick={this.handleMyProfile}>
-                                                        <i className="icon--profile viewProfile--icon far fa-user"></i>
-                                                        Mon Profil</button>
+                                                        <i className="icon--profile viewProfile--icon far fa-user"/>
+                                                        {/* Mon Profil */}
+                                                    </button>
                                                     <button id={"edit_profile"} className={"tabs__profile"} onClick={this.handleEditProfile}>
-                                                        <i className="icon--profile edit--icon fas fa-user-edit"></i>
-                                                        Editer le profil
+                                                        <i className="icon--profile edit--icon fas fa-user-edit"/>
+                                                        {/*Editer le profil*/}
                                                     </button>
                                                     <button id={"verif_email"} className={"tabs__profile"} onClick={this.handleVerifEmail}>
-                                                        <i className="icon--profile email--icon fas fa-at"></i>
-                                                        Vérif. Email
+                                                        <i className="icon--profile email--icon fas fa-at"/>
+                                                        {/*Vérif. Email*/}
                                                     </button>
                                                     <button id={"log_history"} className={"tabs__profile"} onClick={this.handleLogHistory}>
-                                                        <i className="icon--profile history--icon far fa-id-badge"></i>
-                                                        Historique log
+                                                        <i className="icon--profile history--icon far fa-id-badge"/>
+                                                        {/*Historique log*/}
                                                     </button>
                                                     <button id={"delete_user"} className={"tabs__profile"} onClick={this.handleDeleteUser}>
-                                                        <i className="icon--profile delete--icon fas fa-user-times"></i>
-                                                        Supprimer
+                                                        <i className="icon--profile delete--icon fas fa-user-times"/>
+                                                        {/*Supprimer*/}
                                                     </button>
                                                 </div>
                                                 <hr className={"border--simple"}/>
                                             </nav>
                                         </div>
                                     </div>
-
-
-                                    <p>{this.props.user.login}</p>
+                                    {this.state.profileSelect ?
+                                            <MyProfile/> :null
+                                    }
                                 </div>
                             </div>
                         </div>

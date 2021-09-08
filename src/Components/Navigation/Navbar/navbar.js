@@ -46,7 +46,7 @@ class Navbar extends Component {
                         <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
                                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                                 aria-expanded="false" aria-label="Toggle navigation">
-                            <span className="navbar-toggler-icon"></span>
+                            <span className="navbar-toggler-icon"/>
                         </button>
                         <div className="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
                             <form className="d-flex ">
@@ -56,7 +56,7 @@ class Navbar extends Component {
                             </form>
                         </div>
                         {this.props.isLoading?
-                            <p>Chargement du profil <img src={loader} className={"loader"}></img></p>:null
+                            <p>Chargement du profil <img src={loader} alt={"chargement"} className={"loader"}/></p>:null
                         }
                         <div className="dropdown">
                             <a className="dropdown-toggle last--link profile__firstname" role="button"
@@ -75,8 +75,8 @@ class Navbar extends Component {
 
                             <ul className="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                 <li><a className="dropdown-item" onClick={this.disconnect}><i className="icon--off fas fa-power-off"/>Déconnexion</a></li>
-                                <li><Link to={"/user/profile"} className="dropdown-item"><i className="icon--user far fa-user"></i> Mon profil</Link></li>
-                                <li><Link to={"/admin/manageUsers"} className="dropdown-item"><i className="icon--admin fas fa-users-cog"></i> Gestion user</Link></li>
+                                <li><Link to={"/user/profile"} className="dropdown-item"><i className="icon--user far fa-user"/> Mon profil</Link></li>
+                                <li><Link to={"/admin/manageUsers"} className="dropdown-item"><i className="icon--admin fas fa-users-cog"/> Gestion user</Link></li>
                             </ul>
                         </div>
                     </div>
