@@ -92,6 +92,17 @@
     color: $text-dark;
 }
 
+.success--register {
+    margin-left: 3em;
+    margin-bottom: 0.5em;
+    margin-right: 2em !important;
+}
+
+.spinner-border{
+    position: relative;
+    top:0.2em;
+}
+
 /* Navigateur */
 
 //text auto-select in input

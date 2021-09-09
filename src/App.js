@@ -2,9 +2,6 @@ import React from 'react';
 import {BrowserRouter as Router} from "react-router-dom";
 import MainRouter from "./Routes/MainRouter";
 import './App.css';
-import Bus from "./Utils/Bus";
-
-window.flash = (title, message, type = "success") => Bus.emit('flash', ({title, message, type}));
 
 function App({state}) {
   return (

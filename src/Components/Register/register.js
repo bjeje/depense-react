@@ -7,6 +7,7 @@ import ErrorForm from "../error/ErrorForm";
 import {Environment} from "../../Constants/environment";
 import axios from "axios";
 import {userConstants} from "../../Constants/user/user.constants";
+import ValidForm from "../Valid/validForm";
 
 class Register extends Component {
 
@@ -21,6 +22,9 @@ class Register extends Component {
             firstName: "",
             lastName: "",
             birthday: "",
+            loader: false,
+            activeSubmit: true,
+            message: "",
             errorMsg: "",
             errorLogin: "",
             errorEmail: "",
@@ -243,6 +247,7 @@ class Register extends Component {
 
     async handleSubmitRegister(event) {
         event.preventDefault();
+        this.setState({loader: true});
         let valid = this.validateForm();
         if (valid === true) {
             axios.post(Environment.backBase + "/user/", {
@@ -255,10 +260,19 @@ class Register extends Component {
                 birthday: this.state.birthday
             }).then( res => {
                 console.log(res)
-                this.setState({ redirect: true });
+                let element = document.getElementById("btn__submit");
+                element.classList.add('disable');
+                this.setState({ loader: false})
+                this.setState({ message: "Un email de validation vous a été envoyé"});
+                this.setState({ activeSubmit: false })
+                let that = this;
+                setTimeout(function() {
+                   that.setState({ redirect: true });
+                },6000);
             }).catch( error => {
                 console.log(error.response.data)
-                if( !error.response.success ) {
+                this.setState({ loader: false})
+                if(!error.response.success ) {
                     if(typeof error.response.data.type === "string") {
                         switch (error.response.data.type) {
                             case "login":
@@ -301,6 +315,7 @@ class Register extends Component {
                 }
             })
         }
+        this.setState({ loader: false})
     }
 
     render() {
@@ -384,7 +399,7 @@ class Register extends Component {
                                             }
                                         </div>
                                         <div className="form-floating mb-4">
-                                            <input type="date" className="form-control Register_input ps-0 pe-0" id="Register_birthday" onChange={this.handleChangeBirthday}/>
+                                            <input type="date" className="form-control Register_input ps-0 pe-0 mb-3" id="Register_birthday" onChange={this.handleChangeBirthday}/>
                                             <label htmlFor="Register_birthday" className="register_label ps-0 pe-0 pt-0">Date de naissance</label>
                                             {this.state.errorBirthday.length > 0 ?
                                                 <ErrorFormLittle error={this.state.errorBirthday}/> :null
@@ -396,8 +411,19 @@ class Register extends Component {
                                             <ErrorForm error={this.state.errorMsg}/>
                                         </div>:null
                                     }
-                                    <div className="row justify-content-center mt-3">
-                                        <button className="btn btn-default col-3 fs-5 btn-submit" onClick={this.handleSubmitRegister}>Valider</button>
+                                    {this.state.message.length > 1 ?
+                                        <div className={"success--register w-75"}>
+                                        <ValidForm title={"Enregistrement reussi"} message={this.state.message}/>
+                                        </div>:null
+                                    }
+                                    <div className="row justify-content-center">
+                                        <button id={"btn__submit"} className="btn btn-default col-3 fs-5 btn-submit" onClick={this.handleSubmitRegister}>Valider
+                                            {this.state.loader ?
+                                                <div className="spinner-border text-light ms-2" role="status">
+                                                    <span className="sr-only">Loading...</span>
+                                                </div> :null
+                                            }
+                                        </button>
                                     </div>
                                 </div>
                             </div>
