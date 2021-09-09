@@ -98,8 +98,17 @@ class MyProfile extends Component {
                                     <div className={"row"}>
                                         <p className={"col-5 line title-profile"}>Role</p>
                                         <p className={"col-1 col-md-2 line"}>:</p>
-                                        {this.props.user.role === "UnCheck"?
+                                        {this.props.user.role === "UnCheck" && !this.props.user.admin ?
                                             <p className={"col-6 col-md-5 line text-warning fw-bold"}>En attente</p>:null
+                                        }
+                                        {this.props.user.role === "User" && !this.props.user.admin ?
+                                            <p className={"col-6 col-md-5 line text-warning fw-bold"}>Utilisateur</p>:null
+                                        }
+                                        {this.props.user.role === "SuperUser" && !this.props.user.admin ?
+                                            <p className={"col-6 col-md-5 line text-warning fw-bold"}>VIP</p>:null
+                                        }
+                                        { this.props.user.admin ?
+                                            <p className={"col-6 col-md-5 line text-danger fw-bold"}>Admin</p>:null
                                         }
                                     </div>
                                     <div className={"row stripped--line"}>

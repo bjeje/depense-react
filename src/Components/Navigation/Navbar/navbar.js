@@ -75,8 +75,12 @@ class Navbar extends Component {
 
                             <ul className="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                 <li><a className="dropdown-item" onClick={this.disconnect}><i className="icon--off fas fa-power-off"/>Déconnexion</a></li>
+                                {this.props.user.admin?
+                                    <li><Link to={"/admin/manageUsers"} className="dropdown-item">
+                                        <i className="icon--admin fas fa-users-cog"/> Gestion user</Link></li>:null
+                                }
+
                                 <li><Link to={"/user/profile"} className="dropdown-item"><i className="icon--user far fa-user"/> Mon profil</Link></li>
-                                <li><Link to={"/admin/manageUsers"} className="dropdown-item"><i className="icon--admin fas fa-users-cog"/> Gestion user</Link></li>
                             </ul>
                         </div>
                     </div>
