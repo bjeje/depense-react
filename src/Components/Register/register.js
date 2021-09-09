@@ -7,6 +7,7 @@ import ErrorForm from "../error/ErrorForm";
 import {Environment} from "../../Constants/environment";
 import axios from "axios";
 import {userConstants} from "../../Constants/user/user.constants";
+import ValidForm from "../Valid/validForm";
 
 class Register extends Component {
 
@@ -16,14 +17,19 @@ class Register extends Component {
             login:"",
             email: "",
             password: "",
+            confirmPassword: "",
             gender: "male",
             firstName: "",
             lastName: "",
             birthday: "",
+            loader: false,
+            activeSubmit: true,
+            message: "",
             errorMsg: "",
             errorLogin: "",
             errorEmail: "",
             errorPassword: "",
+            errorConfirmPassword: "",
             errorGender: "",
             errorFirstname: "",
             errorLastname: "",
@@ -32,6 +38,7 @@ class Register extends Component {
         };
         this.handleChangeLogin = this.handleChangeLogin.bind(this);
         this.handleChangeEmail = this.handleChangeEmail.bind(this);
+        this.handleChangeConfirmPassword = this.handleChangeConfirmPassword.bind(this);
         this.handleChangePassword = this.handleChangePassword.bind(this);
         this.handleChangeGender = this.handleChangeGender.bind(this);
         this.handleChangeFirstName = this.handleChangeFirstName.bind(this);
@@ -52,6 +59,10 @@ class Register extends Component {
 
     handleChangePassword(event) {
         this.setState({password: event.target.value});
+    }
+
+    handleChangeConfirmPassword(event) {
+        this.setState({confirmPassword: event.target.value});
     }
 
     handleChangeGender(event) {
@@ -111,6 +122,14 @@ class Register extends Component {
         }
     }
 
+    validConfirmPassword(valid) {
+        if(!valid) {
+            this.displayFalse('Confirm_password')
+        } else {
+            this.displayTrue('Confirm_password');
+        }
+    }
+
     validFirstname(valid) {
         if(!valid) {
             this.displayFalse('Register_firstName');
@@ -142,6 +161,7 @@ class Register extends Component {
         this.setState({ errorLogin: "" });
         this.setState({ errorEmail: "" });
         this.setState({ errorPassword: "" });
+        this.setState({ errorConfirmPassword: "" });
         this.setState({ errorGender: "" });
         this.setState({ errorFirstname: "" });
         this.setState({ errorLastname: "" });
@@ -164,7 +184,7 @@ class Register extends Component {
             this.validEmail(true);
             validate.email = true;
         }
-        if (this.state.password.length < 2 || this.state.password.length > 100) {
+        if (this.state.password.length < 8 || this.state.password.length > 100) {
             this.validPassword(false);
             this.setState({ errorPassword: userConstants.userError.PASSWORD_ERROR_LENGHT });
             validate.password = false;
@@ -172,6 +192,22 @@ class Register extends Component {
             this.validPassword(true);
             validate.password = true;
         }
+
+        if (this.state.confirmPassword.length < 8 || this.state.confirmPassword.length > 100) {
+            this.validConfirmPassword(false);
+            this.setState({ errorConfirmPassword: userConstants.userError.PASSWORD_ERROR_LENGHT });
+            validate.confirmPassword = false;
+        } else {
+            this.validConfirmPassword(true);
+            validate.confirmPassword = true;
+        }
+
+        if (this.state.confirmPassword !== this.state.password) {
+            this.validConfirmPassword(false);
+            this.setState({ errorConfirmPassword: userConstants.userError.PASSWORD_CONFIRM_ERROR });
+            validate.confirmPassword = false;
+        }
+
         if (this.state.firstName.length < 2 || this.state.firstName.length > 100) {
             this.validFirstname(false);
             this.setState({ errorFirstname: userConstants.userError.FIRSTNAME_ERROR });
@@ -205,11 +241,13 @@ class Register extends Component {
             //     validate.birth = true;
             // }
         }
-        return !(validate.login === false || validate.email === false || validate.password === false || validate.firstName === false || validate.lastName === false)
+        return !(validate.login === false || validate.email === false || validate.password === false ||
+            validate.confirmPassword === false || validate.firstName === false || validate.lastName === false)
     }
 
     async handleSubmitRegister(event) {
         event.preventDefault();
+        this.setState({loader: true});
         let valid = this.validateForm();
         if (valid === true) {
             axios.post(Environment.backBase + "/user/", {
@@ -222,10 +260,19 @@ class Register extends Component {
                 birthday: this.state.birthday
             }).then( res => {
                 console.log(res)
-                this.setState({ redirect: true });
+                let element = document.getElementById("btn__submit");
+                element.classList.add('disable');
+                this.setState({ loader: false})
+                this.setState({ message: "Un email de validation vous a été envoyé"});
+                this.setState({ activeSubmit: false })
+                let that = this;
+                setTimeout(function() {
+                   that.setState({ redirect: true });
+                },6000);
             }).catch( error => {
                 console.log(error.response.data)
-                if( !error.response.success ) {
+                this.setState({ loader: false})
+                if(!error.response.success ) {
                     if(typeof error.response.data.type === "string") {
                         switch (error.response.data.type) {
                             case "login":
@@ -268,6 +315,7 @@ class Register extends Component {
                 }
             })
         }
+        this.setState({ loader: false})
     }
 
     render() {
@@ -308,8 +356,15 @@ class Register extends Component {
                                                 <ErrorFormLittle error={this.state.errorPassword}/> :null
                                             }
                                         </div>
+                                        <div className="form-floating mb-4">
+                                            <input type="password" className="form-control Register_input ps-0 pe-0 " id="Confirm_password" placeholder="• • • • • • • • •" onChange={this.handleChangeConfirmPassword}/>
+                                            <label htmlFor="Confirm_password" className="register_label ps-0 pe-0 pt-0">Confirmer le mot de passe <span className={"star"}>*</span></label>
+                                            {this.state.errorConfirmPassword.length > 0 ?
+                                                <ErrorFormLittle error={this.state.errorConfirmPassword}/> :null
+                                            }
+                                        </div>
                                     </div>
-                                    <h1 className="register_label h4 text-center font_montserrat mt-5">Information personnelles</h1>
+                                    <h1 className="register_label h4 text-center font_montserrat mt-4">Information personnelles</h1>
                                     <div className="col-8 pt-3 pb-3" id="Register_GenderInput--style">
                                         <label className="register_label font_montserrat mb-4">Civilité <span className={"star"}>*</span></label>
                                         <div className="form-floating row mb-4">
@@ -344,7 +399,7 @@ class Register extends Component {
                                             }
                                         </div>
                                         <div className="form-floating mb-4">
-                                            <input type="date" className="form-control Register_input ps-0 pe-0" id="Register_birthday" onChange={this.handleChangeBirthday}/>
+                                            <input type="date" className="form-control Register_input ps-0 pe-0 mb-3" id="Register_birthday" onChange={this.handleChangeBirthday}/>
                                             <label htmlFor="Register_birthday" className="register_label ps-0 pe-0 pt-0">Date de naissance</label>
                                             {this.state.errorBirthday.length > 0 ?
                                                 <ErrorFormLittle error={this.state.errorBirthday}/> :null
@@ -356,8 +411,19 @@ class Register extends Component {
                                             <ErrorForm error={this.state.errorMsg}/>
                                         </div>:null
                                     }
-                                    <div className="row justify-content-center mt-3">
-                                        <button className="btn btn-default col-3 fs-5 btn-submit" onClick={this.handleSubmitRegister}>Valider</button>
+                                    {this.state.message.length > 1 ?
+                                        <div className={"success--register w-75"}>
+                                        <ValidForm title={"Enregistrement reussi"} message={this.state.message}/>
+                                        </div>:null
+                                    }
+                                    <div className="row justify-content-center">
+                                        <button id={"btn__submit"} className="btn btn-default col-3 fs-5 btn-submit" onClick={this.handleSubmitRegister}>Valider
+                                            {this.state.loader ?
+                                                <div className="spinner-border text-light ms-2" role="status">
+                                                    <span className="sr-only">Loading...</span>
+                                                </div> :null
+                                            }
+                                        </button>
                                     </div>
                                 </div>
                             </div>

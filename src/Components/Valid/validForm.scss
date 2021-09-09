@@ -1,0 +1,10 @@
+@import "src/Scss/colors";
+
+.bg_success {
+  background: $color-valid;
+  margin-right: 1em;
+}
+
+.title--valid, .message--valid {
+  color: $text-dark;
+}

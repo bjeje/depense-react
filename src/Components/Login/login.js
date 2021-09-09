@@ -1,7 +1,6 @@
 import React, {Component, Fragment} from 'react';
 import './login.scss';
 import {Link} from "react-router-dom";
-import Flash from "../Flash/flash";
 
 import logoEtLabel from "../../Assets/logo/logoEtLabelSm.png";
 import ErrorForm from "../error/ErrorForm";
@@ -97,7 +96,6 @@ class Login extends Component {
                                 </div>
                                 <div className="row justify-content-center mt-4">
                                     <div className="col-8 pt-3 pb-3">
-                                        <Flash/>
                                         <div className="form-floating mb-4">
                                             <input type="login" className="form-control Login_input ps-0 pe-0" id="Login" placeholder="name@example.com" onChange={this.handleChangeLogin}/>
                                             <label htmlFor="Login" className="ps-0 pe-0 pt-0">Login</label>

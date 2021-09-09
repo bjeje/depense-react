@@ -10,6 +10,7 @@ export const userConstants = {
         PASSWORD_ERROR_TYPE: 'un caractère spécial et un chiffre minimum',
         PASSWORD_CHANGE_OLD_ERROR: 'L\'ancien mot de passe ne correspond pas !',
         PASSWORD_SAME: 'Aucun changement n\'a été effectué',
+        PASSWORD_CONFIRM_ERROR: "Le mot de passe n'est pas identique",
         GENDER_ERROR: 'Genre incorrect',
         FIRSTNAME_ERROR: '2 à 100 caractères',
         LASTNAME_ERROR: '2 à 100 caractères',
