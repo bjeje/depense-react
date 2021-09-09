@@ -6,10 +6,11 @@ import Navbar from "../Components/Navigation/Navbar/navbar";
 import PrivateRouteAdmin from "../Components/PrivateRoute/PrivateRouteAdmin";
 import PrivateRouteUser from "../Components/PrivateRoute/PrivateRouteUser";
 
-//import Page
+//import User Page
 import RegisterPage from "../Views/RegisterPage/registerPage";
 import LoginPage from "../Views/LoginPage/loginPage";
 import ProfilePage from "../Views/ProfilePage/profilePage";
+import VerifyEmailPage from "../Views/VerifyEmailPage/verifyEmailPage";
 
 export default class MainRouter extends Component {
 
@@ -35,13 +36,19 @@ export default class MainRouter extends Component {
             <Fragment>
                 <Router>
                     {this.state.route === "/login" ? null : this.state.route === "/register" ? null :
+                        this.state.route === "/user/verifyEmail" ? null :
                         <Navbar/>
                     }
                     <Switch>
-                        <Route path="/register" component={RegisterPage}/>
-                        <Route path="/login" component={LoginPage}/>
-                        <PrivateRouteUser exact path={"/user/profile"} component={ProfilePage}/>
-                        <PrivateRouteUser exact path={"/"} component={ProfilePage}/>
+                        {/* ROUTE UNREGISTER */}
+                            <Route path="/register" component={RegisterPage}/>
+                            <Route path="/login" component={LoginPage}/>
+                            <Route path="/user/verifyEmail" component={VerifyEmailPage}/>
+                        {/* ROUTES REGISTER */}
+                            <PrivateRouteUser exact path={"/user/profile"} component={ProfilePage}/>
+                            <PrivateRouteUser exact path={"/"} component={ProfilePage}/>
+                        {/* ROUTE ADMIN */}
+                        {/*    <PrivateRouteAdmin exact path={"/"} component={ManageUsersPage}/>*/}
                     </Switch>
                 </Router>
             </Fragment>
