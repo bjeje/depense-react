@@ -1,0 +1,56 @@
+@import "src/Scss/Colors";
+
+.admin__connected {
+  font-size: 2em;
+  color: $color-red
+}
+
+.identity--admin {
+  padding-top: 0.85em !important;
+  @media screen and (min-width: 768px) and  (max-width: 992px ) {
+    padding-top: 0em !important;
+  }
+}
+
+.imgProfileTabs {
+  height: 15em;
+  border-radius: 50%;
+  @media screen and (max-width: 992px ) {
+    height: 10em;
+  }
+  @media screen and (max-width: 768px ) {
+    height: 8em;
+  }
+  @media screen and (max-width: 576px ) {
+    height: 6em;
+  }
+}
+
+.undefined--color {
+  color: $text-undefined;
+}
+
+.stripped--line {
+  background-color: $background-light;
+  border-radius: 0.3em;
+}
+
+.line {
+  padding: 0.6em 1em;
+  margin: 0;
+  @media screen and (max-width: 568px) {
+    padding: 0.6em 0;
+  }
+}
+
+.account--icon, .email--checked {
+  font-size: 1.3em;
+  color: $text-darkGreen;
+  padding-top: 0.1em;
+}
+
+.email--icon {
+
+}
+
+
