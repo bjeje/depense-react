@@ -1,0 +1,60 @@
+@import 'src/Scss/Colors';
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width:100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.25);
+}
+
+.modal__main {
+    position:fixed;
+    background: $background-verySoft;
+    height: auto;
+    width: 20em;
+    height: auto;
+    border-radius: 1.2em;
+    top:52%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    padding: 2em 4em;
+}
+
+.display-block {
+    display: block;
+}
+
+.display-none {
+    display: none;
+}
+
+.input__login:focus {
+    outline: none !important;
+    box-shadow: none !important;
+    border: 1px solid #ece3e3;
+}
+
+.text--modal, .title--modal {
+    color: $text-dark !important;
+}
+
+.text--modal {
+    font-style: italic;
+    font-size: 17px;
+}
+
+.btn--close {
+    position: absolute;
+    top: 1.2em;
+    right: 1.2em;
+}
+
+.icon--close {
+    color: $color-underMain;
+    font-size: 1.4em;
+    &:hover {
+        color: $color-main;
+    }
+}

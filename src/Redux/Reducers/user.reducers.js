@@ -38,9 +38,17 @@ export function userReducer(state = initialState, action) {
                 error: ''
             }
         case PUT_USER_LOGIN:
-            return state;
+            return {
+                ...state, user: { ...state.user,
+                    login: action.payload.login,
+                }
+            }
         case PUT_USER_EMAIL:
-            return state;
+            return {
+                ...state, user: { ...state.user,
+                    email: action.payload.email,
+                }
+            }
         case PUT_USER_PASSWORD:
             return state;
         case PUT_USER_BIRTHDAY:

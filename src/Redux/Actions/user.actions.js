@@ -50,10 +50,10 @@ export const putUserLogin = (data) => {
         },{ headers: headers })
         .then(res => {
         console.log(res.data)
-        dispatch({ type: PUT_USER_LOGIN, payload: {...data} })
+        dispatch({ type: PUT_USER_LOGIN, payload: {login: data} })
         })
         .catch(error => {
-        console.log(error.response)
+            console.log(error.response)
         })
     }
 }
@@ -65,7 +65,7 @@ export const putUserEmail = (data) => {
         }, { headers: headers } )
             .then(res => {
             console.log(res.data)
-            dispatch({ type: PUT_USER_EMAIL, payload: {...data}})
+            dispatch({ type: PUT_USER_EMAIL, payload: {email: data}})
         })
             .catch(error => {
             console.log(error.response)
