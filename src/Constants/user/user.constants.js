@@ -1,6 +1,10 @@
 export const userConstants = {
+    userValid: {
+        REGISTER_SUCCESS: "Enregistrement reussi",
+        EMAIl_SEND: "Un email de validation vous a été envoyé",
+    },
     userError: {
-        LOGIN_ERROR: 'Login incorrect 6 à 100 caractère',
+        LOGIN_ERROR: 'Login incorrect 6 à 100 caractères',
         LOGIN_EXIST: 'Login incorrect',
         LOGIN_SAME: 'Aucun changement n\'a été effectué',
         EMAIL_ERROR: 'Email incorrect',

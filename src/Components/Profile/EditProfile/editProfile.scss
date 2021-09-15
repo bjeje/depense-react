@@ -1,0 +1,102 @@
+@import 'src/Scss/Colors';
+
+%background-input {
+  background: $background-verySoft;
+}
+
+%background-box  {
+  background: $background-light;
+}
+
+%text-size {
+  font-size: 17px;
+}
+
+%color-btn {
+  color: $text-dark;
+}
+
+%colorHover {
+  color: $text-dark;
+}
+
+%bg-button {
+  background: $color-green;
+  &:hover {
+    background: $color-darkGreen;
+  }
+}
+
+.stripped--dark {
+  background: $background-light;
+}
+
+.box__security, .box__personnal {
+  border-radius: 2em;
+  padding: 1em 2em;
+  @extend %background-box;
+}
+
+.box__password {
+  @extend %background-box;
+  border-radius: 2em;
+  padding: 0.2em 2em;
+}
+
+.box__personnal{
+  margin-bottom: 1.5em !important;
+}
+
+.Edit_label {
+  color: #07003b;
+}
+
+.Edit_input {
+  //margin-left: 2em !important;
+  border-radius: 0;
+  border: none;
+  color: $text-dark;
+  @extend %background-input;
+}
+
+.Edit_input:focus {
+  outline: none;
+  @extend %background-input;
+  box-shadow: none;
+  border-bottom: 1px solid $color-dark;
+}
+
+.btn--edit, .btn--password {
+  @extend %text-size;
+  @extend %bg-button;
+  @extend %color-btn;
+  border-radius: 0.5em;
+  border: none;
+}
+
+.btn--edit {
+  padding: 0.2em 0.8em;
+  &:hover {
+    @extend %colorHover
+  }
+  &:focus {
+    box-shadow: none !important;
+  }
+}
+
+.btn--login, .btn--email {
+  margin-top: 2.2em;
+}
+
+.btn--password {
+  max-width: 14em;
+  padding: 0.2em 1.2em;
+  &:hover {
+    @extend %colorHover
+  }
+}
+
+.btn--personnal {
+  @extend %text-size;
+  width: 6em;
+}
