@@ -5,7 +5,7 @@ import ErrorFormLittle from "../../error/ErrorFormLittle";
 import React, { useEffect, useState } from 'react';
 import { connect } from "react-redux";
 import { useDispatch } from "react-redux";
-import {putUserLogin} from "../../../Redux/Actions/user.actions";
+import {editUserLogin} from "../../../Redux/Actions/user.actions";
 
 export const ModalEditLogin = ({ handleCloseLogin, show, userLogin }) => {
     const showHideClassName = show ? "modal display-block" : "modal display-none";
@@ -31,7 +31,7 @@ export const ModalEditLogin = ({ handleCloseLogin, show, userLogin }) => {
         }
 
         if(canSend) {
-            dispatch(putUserLogin(login));
+            dispatch(editUserLogin(login));
             setLogin("");
             setRedirection(true)
         }
@@ -93,6 +93,7 @@ export const ModalEditLogin = ({ handleCloseLogin, show, userLogin }) => {
 const mapStateToProps = state => ({
     login: state.user.login,
 })
-const mapDispatchToProps = { putUserLogin };
+
+const mapDispatchToProps = { editUserLogin };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ModalEditLogin)

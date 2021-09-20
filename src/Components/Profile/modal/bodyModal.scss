@@ -30,7 +30,7 @@
     display: none;
 }
 
-.input__login:focus {
+.input__login:focus, .input__email:focus, .input__password:focus  {
     outline: none !important;
     box-shadow: none !important;
     border: 1px solid #ece3e3;

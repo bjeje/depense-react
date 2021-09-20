@@ -5,7 +5,7 @@ import ErrorFormLittle from "../../error/ErrorFormLittle";
 import React, { useEffect, useState } from 'react';
 import {connect, useDispatch} from "react-redux";
 import { environment } from '../../../Constants/environment'
-import {putUserEmail} from "../../../Redux/Actions/user.actions";
+import {editUserEmail} from "../../../Redux/Actions/user.actions";
 
 export const ModalEditEmail = ({ handleCloseEmail, show, emailUser }) => {
     const showHideClassName = show ? "modal display-block" : "modal display-none";
@@ -32,7 +32,7 @@ export const ModalEditEmail = ({ handleCloseEmail, show, emailUser }) => {
         }
 
         if(canSend) {
-            dispatch(putUserEmail(email))
+            dispatch(editUserEmail(email))
             setEmail("");
             setRedirection(true)
         }
@@ -96,6 +96,6 @@ const mapStateToProps = state => ({
     email: state.user.email,
 })
 
-const mapDispatchToProps = { putUserEmail };
+const mapDispatchToProps = { editUserEmail };
 
 export default connect(mapStateToProps,mapDispatchToProps)(ModalEditEmail)
