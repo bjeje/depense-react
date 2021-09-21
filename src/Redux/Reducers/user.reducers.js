@@ -7,7 +7,9 @@ import {
     EDIT_USER_PASSWORD,
     EDIT_USER_PASSWORD_SUCCESS,
     EDIT_USER_PASSWORD_ERROR,
-    EDIT_USER_BIRTHDAY,
+    EDIT_PERSONNAL_INFO,
+    EDIT_PERSONNAL_INFO_ERROR,
+    EDIT_PERSONNAL_INFO_SUCCESS,
     SET_SUCCESS_FALSE,
 } from "../Constants/user.types";
 
@@ -15,7 +17,8 @@ const initialState = {
     isLoading: false,
     user: {},
     error: '',
-    success: false
+    success: false,
+    type: '',
 }
 
 export function userReducer(state = initialState, action) {
@@ -72,8 +75,33 @@ export function userReducer(state = initialState, action) {
                 isLoading: false,
                 error: action.payload
             };
-        case EDIT_USER_BIRTHDAY: // EDIT PERSONNAL INFO
-            return state;
+        case EDIT_PERSONNAL_INFO: // EDIT PERSONNAL INFO
+            return {
+                ...state,
+                success: false,
+                isLoading: true,
+                error: ''
+            }
+        case EDIT_PERSONNAL_INFO_SUCCESS: // EDIT PERSONNAL INFO
+            return {
+                ...state, user: {
+                    ...state.user,
+                    gender: action.payload.gender,
+                    firstName: action.payload.firstName,
+                    lastName: action.payload.lastName,
+                    birthday: action.payload.birthday,
+                },
+                success: true,
+                isLoading: false,
+            }
+        case EDIT_PERSONNAL_INFO_ERROR: // EDIT PERSONNAL INFO
+            return {
+                ...state,
+                success: false,
+                isLoading: false,
+                error: action.payload.error,
+                type: action.payload.type
+            }
         case SET_SUCCESS_FALSE: // EDIT SUCCESS TO FALSE
             return {
                 ...state,

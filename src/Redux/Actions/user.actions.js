@@ -8,14 +8,16 @@ import {
     EDIT_USER_PASSWORD,
     EDIT_USER_PASSWORD_ERROR,
     EDIT_USER_PASSWORD_SUCCESS,
-    EDIT_USER_BIRTHDAY,
+    EDIT_PERSONNAL_INFO,
+    EDIT_PERSONNAL_INFO_ERROR,
+    EDIT_PERSONNAL_INFO_SUCCESS,
     SET_SUCCESS_FALSE,
 
 } from "../Constants/user.types";
 
 import {Environment} from "../../Constants/environment";
 import AuthService from "../../Services/auth.service";
-import userService from "../../Services/user.service";
+// import userService from "../../Services/user.service";
 
 const headers = {
     'Authorization': `Bearer ${AuthService.getCurrentAuth()}`
@@ -116,17 +118,22 @@ export const setSuccessFalse = () => {
     }
 }
 
-export const putUserBirthday = (data) => {
+export const editPersonnalInfo = (data) => {
     return (dispatch) => {
-        return axios.put(Environment.backUser + "updateBirthday", {
-            birthday: data
+        dispatch({ type: EDIT_PERSONNAL_INFO })
+        return axios.put(Environment.backUser + "updatePersonnalInfo", {
+            gender: data.gender,
+            firstName: data.firstName,
+            lastName: data.lastName,
+            birthday: data.birthday,
         }, { headers: headers })
             .then(res => {
             console.log(res.data)
-            dispatch({ type: EDIT_USER_BIRTHDAY, payload: {...data} })
+            dispatch({ type: EDIT_PERSONNAL_INFO_SUCCESS, payload: data })
         })
             .catch(error => {
             console.log(error.response)
+            dispatch({ type: EDIT_PERSONNAL_INFO_ERROR, payload: error.response.data })
         })
     }
 }

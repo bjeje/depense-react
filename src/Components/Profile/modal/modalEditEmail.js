@@ -4,7 +4,6 @@ import ErrorForm from "../../error/ErrorForm";
 import ErrorFormLittle from "../../error/ErrorFormLittle";
 import React, { useEffect, useState } from 'react';
 import {connect, useDispatch} from "react-redux";
-import { environment } from '../../../Constants/environment'
 import {editUserEmail} from "../../../Redux/Actions/user.actions";
 
 export const ModalEditEmail = ({ handleCloseEmail, show, emailUser }) => {

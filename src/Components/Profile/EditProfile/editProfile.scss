@@ -98,5 +98,6 @@
 
 .btn--personnal {
   @extend %text-size;
-  width: 6em;
+  min-width: 6em;
+  max-width: 7em;
 }

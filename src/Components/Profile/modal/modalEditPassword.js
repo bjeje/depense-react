@@ -35,7 +35,7 @@ export const ModalEditPassword = ({ handleClosePassword, show }) => {
                 dispatch(setSuccessFalse());
             }
         }
-    });
+    }, [dispatch, handleClosePassword, success]);
 
 
     const handleSubmitPassword = async (e) => {

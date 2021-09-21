@@ -18,7 +18,7 @@ class Register extends Component {
             email: "",
             password: "",
             confirmPassword: "",
-            gender: "male",
+            gender: "men",
             firstName: "",
             lastName: "",
             birthday: "",
@@ -369,8 +369,8 @@ class Register extends Component {
                                         <label className="register_label font_montserrat mb-4">Civilité <span className={"star"}>*</span></label>
                                         <div className="form-floating row mb-4">
                                             <div className="col-4">
-                                                <input type='radio' name="gender" id="male" defaultChecked value={"male"} onChange={this.handleChangeGender}/>
-                                                <label htmlFor="male" className="register_label ms-2 ">Homme</label>
+                                                <input type='radio' name="gender" id="men" defaultChecked value={"men"} onChange={this.handleChangeGender}/>
+                                                <label htmlFor="men" className="register_label ms-2 ">Homme</label>
                                             </div>
                                             <div className="col-4">
                                                 <input type='radio' name="gender" id="woman" value={"woman"} onChange={this.handleChangeGender}/>

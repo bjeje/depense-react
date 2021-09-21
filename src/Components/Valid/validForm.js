@@ -9,7 +9,7 @@ export default function ValidForm(props) {
     useEffect(() => {
         setTitle(props.title)
         setMessage(props.message)
-    }, []);
+    }, [props.title, props.message]);
 
     return (
         <Fragment>
