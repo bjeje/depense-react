@@ -6,7 +6,6 @@ import loader from "../../../Assets/loader/loader.gif"
 import {Environment} from "../../../Constants/environment";
 import './verifyEmail.scss';
 import ErrorForm from "../../error/ErrorForm";
-import AuthService from "../../../Services/auth.service";
 
 class VerifyEmail extends Component {
 
