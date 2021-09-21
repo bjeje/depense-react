@@ -35,7 +35,7 @@ class MyProfile extends Component {
                         }
                         <div className={"col-md-5 col-sm-12"}>
                             <div className={"d-flex justify-content-center mt-4"}>
-                                { this.props.user.gender === "male" ?
+                                { this.props.user.gender === "men" ?
                                         <img src={men} alt={"Profile"} className={"imgProfileTabs"}/>
                                     :null
                                 }
@@ -114,7 +114,7 @@ class MyProfile extends Component {
                                     <div className={"row stripped--line"}>
                                         <p className={"col-5 line title-profile"}>Sexe</p>
                                         <p className={"col-1 col-md-2 line"}>:</p>
-                                        {this.props.user.gender === "male"?
+                                        {this.props.user.gender === "men"?
                                             <p className={"col-6 col-md-5 line"}>homme</p>:null
                                         }
                                         { this.props.user.gender === "woman"?

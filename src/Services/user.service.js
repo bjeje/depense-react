@@ -10,15 +10,6 @@ const headers = {
 const userService = {
     getUser() {
          return axios.get(Environment.backUser, { headers: headers })
-            // .then(res => {
-            //     console.log(res.data)
-            //     return res
-            //     // dispatch({ type: GET_USER, payload: res.data })
-            // })
-            // .catch(error => {
-            //     console.log(error.response)
-            //     return error
-            // });
     }
 }
 

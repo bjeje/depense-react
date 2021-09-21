@@ -62,7 +62,7 @@ class Navbar extends Component {
                             <a className="dropdown-toggle last--link profile__firstname" role="button"
                                id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                                 {this.props.user.firstName}
-                                { this.props.user.gender === "male" ?
+                                { this.props.user.gender === "men" ?
                                     <img src={this.state.imgMen} alt={"Profile"} className={"imgProfile"}/>:null
                                 }
                                 { this.props.user.gender === "woman" ?

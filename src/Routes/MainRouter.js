@@ -3,7 +3,7 @@ import {Switch, Route, Redirect, BrowserRouter as Router} from "react-router-dom
 import '../App.css';
 import {createBrowserHistory} from "history";
 import Navbar from "../Components/Navigation/Navbar/navbar";
-import PrivateRouteAdmin from "../Components/PrivateRoute/PrivateRouteAdmin";
+// import PrivateRouteAdmin from "../Components/PrivateRoute/PrivateRouteAdmin";
 import PrivateRouteUser from "../Components/PrivateRoute/PrivateRouteUser";
 
 //import User Page

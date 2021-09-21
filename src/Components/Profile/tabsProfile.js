@@ -4,6 +4,7 @@ import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import {getUser} from "../../Redux/Actions/user.actions";
 import MyProfile from "./MyProfile/myProfile";
+import EditProfile from "./EditProfile/editProfile";
 
 class TabsProfile extends Component {
 
@@ -165,7 +166,10 @@ class TabsProfile extends Component {
                                         </div>
                                     </div>
                                     {this.state.profileSelect ?
-                                            <MyProfile/> :null
+                                        <MyProfile/> :null
+                                    }
+                                    {this.state.editSelect ?
+                                        <EditProfile/> :null
                                     }
                                 </div>
                             </div>
