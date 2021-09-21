@@ -18,7 +18,7 @@ class Register extends Component {
             email: "",
             password: "",
             confirmPassword: "",
-            gender: "male",
+            gender: "men",
             firstName: "",
             lastName: "",
             birthday: "",
@@ -263,7 +263,7 @@ class Register extends Component {
                 let element = document.getElementById("btn__submit");
                 element.classList.add('disable');
                 this.setState({ loader: false})
-                this.setState({ message: "Un email de validation vous a été envoyé"});
+                this.setState({ message: userConstants.userValid.EMAIl_SEND });
                 this.setState({ activeSubmit: false })
                 let that = this;
                 setTimeout(function() {
@@ -336,7 +336,7 @@ class Register extends Component {
                                     <h1 className="h4 text-center register_label font_montserrat">Identifiants</h1>
                                     <div className="col-8 pt-3 pb-3">
                                         <div className="form-floating mb-4">
-                                            <input type="login" className="form-control Register_input ps-0 pe-0 " id="Register_login" onChange={this.handleChangeLogin}/>
+                                            <input type="login" className="form-control Register_input ps-0 pe-0 " id="Register_login" placeholder="login" onChange={this.handleChangeLogin}/>
                                             <label htmlFor="Register_login" className="register_label ps-0 pe-0 pt-0">Login <span className={"star"}>*</span></label>
                                             {this.state.errorLogin.length > 0 ?
                                                 <ErrorFormLittle error={this.state.errorLogin}/> :null
@@ -369,8 +369,8 @@ class Register extends Component {
                                         <label className="register_label font_montserrat mb-4">Civilité <span className={"star"}>*</span></label>
                                         <div className="form-floating row mb-4">
                                             <div className="col-4">
-                                                <input type='radio' name="gender" id="male" defaultChecked value={"male"} onChange={this.handleChangeGender}/>
-                                                <label htmlFor="male" className="register_label ms-2 ">Homme</label>
+                                                <input type='radio' name="gender" id="men" defaultChecked value={"men"} onChange={this.handleChangeGender}/>
+                                                <label htmlFor="men" className="register_label ms-2 ">Homme</label>
                                             </div>
                                             <div className="col-4">
                                                 <input type='radio' name="gender" id="woman" value={"woman"} onChange={this.handleChangeGender}/>
@@ -413,7 +413,7 @@ class Register extends Component {
                                     }
                                     {this.state.message.length > 1 ?
                                         <div className={"success--register w-75"}>
-                                        <ValidForm title={"Enregistrement reussi"} message={this.state.message}/>
+                                        <ValidForm title={ userConstants.userValid.REGISTER_SUCCESS } message={this.state.message}/>
                                         </div>:null
                                     }
                                     <div className="row justify-content-center">

@@ -3,22 +3,26 @@ import {
     GET_USER_REQUEST,
     GET_USER_ERROR,
     GET_USER_SUCCESS,
-    PUT_USER_LOGIN,
-    PUT_USER_EMAIL,
-    PUT_USER_PASSWORD,
-    PUT_USER_BIRTHDAY,
-
+    EDIT_USER_LOGIN,
+    EDIT_USER_EMAIL,
+    EDIT_USER_PASSWORD,
+    EDIT_USER_PASSWORD_ERROR,
+    EDIT_USER_PASSWORD_SUCCESS,
+    EDIT_PERSONNAL_INFO,
+    EDIT_PERSONNAL_INFO_ERROR,
+    EDIT_PERSONNAL_INFO_SUCCESS,
+    SET_SUCCESS_FALSE,
 
 } from "../Constants/user.types";
 
 import {Environment} from "../../Constants/environment";
 import AuthService from "../../Services/auth.service";
-import userService from "../../Services/user.service";
+// import userService from "../../Services/user.service";
 
 const headers = {
     'Authorization': `Bearer ${AuthService.getCurrentAuth()}`
 }
-
+// GET USER INFO
 const getUserRequest = () => ({
     type: GET_USER_REQUEST,
 });
@@ -27,6 +31,23 @@ const getUserError = error => ({
         type: GET_USER_ERROR,
         payload: error
 });
+
+// EDIT USER PASSWORD
+const putUserPassword = () => ({
+    type: EDIT_USER_PASSWORD,
+})
+
+const editUserPasswordSuccess = (success) => ({
+    type: EDIT_USER_PASSWORD_SUCCESS,
+    payload: success
+});
+
+const editUserPasswordError = error => ({
+    type: EDIT_USER_PASSWORD_ERROR,
+    payload: error
+});
+
+// EDIT PERSONNAL INFO
 
 export const getUser = ()  => {
          return async (dispatch) => {
@@ -43,29 +64,29 @@ export const getUser = ()  => {
          }
 }
 
-export const putUserLogin = (data) => {
+export const editUserLogin = (data) => {
     return (dispatch) => {
         return axios.put(Environment.backUser + "updateLogin", {
             login: data
         },{ headers: headers })
         .then(res => {
         console.log(res.data)
-        dispatch({ type: PUT_USER_LOGIN, payload: {...data} })
+        dispatch({ type: EDIT_USER_LOGIN, payload: {login: data} })
         })
         .catch(error => {
-        console.log(error.response)
+            console.log(error.response)
         })
     }
 }
 
-export const putUserEmail = (data) => {
+export const editUserEmail = (data) => {
     return (dispatch) => {
         return axios.put(Environment.backUser + "updateEmail", {
             email: data
         }, { headers: headers } )
             .then(res => {
             console.log(res.data)
-            dispatch({ type: PUT_USER_EMAIL, payload: {...data}})
+            dispatch({ type: EDIT_USER_EMAIL, payload: {email: data}})
         })
             .catch(error => {
             console.log(error.response)
@@ -73,31 +94,46 @@ export const putUserEmail = (data) => {
     }
 }
 
-export const putUserPassword = (password) => {
+export const editUserPassword = (password, newPassword) => {
     return (dispatch) => {
+         dispatch(putUserPassword());
         return axios.put(Environment.backUser + "updatePassword", {
-            password: password
+            password: password,
+            newPassword: newPassword
         }, { headers: headers })
-            .then(res => {
+            .then((res) => {
             console.log(res.data)
+               dispatch(editUserPasswordSuccess(res.data.success))
         })
-            .catch(error => {
-            console.log(error.response)
+            .catch((error) => {
+                console.log(error)
+                dispatch(editUserPasswordError(error.response.data.error))
         })
     }
 }
 
-export const putUserBirthday = (data) => {
+export const setSuccessFalse = () => {
     return (dispatch) => {
-        return axios.put(Environment.backUser + "updateBirthday", {
-            birthday: data
+         return dispatch({type: SET_SUCCESS_FALSE, payload: { success: false}})
+    }
+}
+
+export const editPersonnalInfo = (data) => {
+    return (dispatch) => {
+        dispatch({ type: EDIT_PERSONNAL_INFO })
+        return axios.put(Environment.backUser + "updatePersonnalInfo", {
+            gender: data.gender,
+            firstName: data.firstName,
+            lastName: data.lastName,
+            birthday: data.birthday,
         }, { headers: headers })
             .then(res => {
             console.log(res.data)
-            dispatch({ type: PUT_USER_BIRTHDAY, payload: {...data} })
+            dispatch({ type: EDIT_PERSONNAL_INFO_SUCCESS, payload: data })
         })
             .catch(error => {
             console.log(error.response)
+            dispatch({ type: EDIT_PERSONNAL_INFO_ERROR, payload: error.response.data })
         })
     }
 }
