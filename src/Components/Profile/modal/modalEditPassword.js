@@ -5,6 +5,7 @@ import React, {useEffect, useRef, useState} from 'react';
 import {editUserPassword, setSuccessFalse} from "../../../Redux/Actions/user.actions";
 import {connect, useDispatch, useSelector} from "react-redux";
 import ErrorForm from "../../error/ErrorForm";
+import {verifyPassword, comparePassword} from "../../../Verify/verifyUser";
 
 export const ModalEditPassword = ({ handleClosePassword, show }) => {
     const dispatch = useDispatch();
@@ -27,6 +28,13 @@ export const ModalEditPassword = ({ handleClosePassword, show }) => {
             setCanSend(true);
         } else {
             // componentDidUpdate logic
+            if(showHideClassName === "modal display-none") {
+                setPasswordError("");
+                setConfirmPasswordError("");
+                setPassword("");
+                setNewPassword("");
+                setConfirmPassword("");
+            }
             if(success) {
                 setPassword("");
                 setNewPassword("");
@@ -35,7 +43,7 @@ export const ModalEditPassword = ({ handleClosePassword, show }) => {
                 dispatch(setSuccessFalse());
             }
         }
-    }, [dispatch, handleClosePassword, success]);
+    }, [dispatch, handleClosePassword, success, show]);
 
 
     const handleSubmitPassword = async (e) => {
@@ -47,15 +55,14 @@ export const ModalEditPassword = ({ handleClosePassword, show }) => {
             canSendAwait = await setCanSend(true);
         }
 
-        if(newPassword.length < 8 || newPassword.length > 100) {
+        if(!verifyPassword(newPassword).success) {
             canSendAwait = await setCanSend(false);
-            setPasswordError(userConstants.userError.PASSWORD_ERROR_LENGHT);
+            setPasswordError(verifyPassword(newPassword).errorMsg);
         }
 
-        if(newPassword !== confirmPassword) {
-            console.log("rentré diff")
+        if(!comparePassword(newPassword,confirmPassword).success) {
             canSendAwait = await setCanSend(false);
-            setConfirmPasswordError(userConstants.userError.PASSWORD_CONFIRM_ERROR);
+            setConfirmPasswordError(comparePassword(newPassword,confirmPassword).errorMsg);
         }
 
         if(canSendAwait) {
@@ -87,20 +94,20 @@ export const ModalEditPassword = ({ handleClosePassword, show }) => {
                                            onChange={event => setPassword(event.target.value)}
                                            id={'oldPassword'}
                                     />
-                                    <label htmlFor={"password"} className={"title--modal mb-2"}>Nouveau mot de passe</label>
+                                    <label htmlFor={"password_input"} className={"title--modal mb-2"}>Nouveau mot de passe</label>
                                     <input type="password" className="form-control input__password mb-3"
                                            value={newPassword}
                                            onChange={event => setNewPassword(event.target.value)}
-                                           id={'password'}
+                                           id={'password_input'}
                                     />
                                     {passwordError && passwordError.length > 1 ?
                                         <ErrorFormLittle error={passwordError}/>:null
                                     }
-                                    <label htmlFor={"confirmPassword"} className={"title--modal mb-2"}>Confirmer le mot de passe</label>
+                                    <label htmlFor={"Confirm_password_input"} className={"title--modal mb-2"}>Confirmer le mot de passe</label>
                                     <input type="password" className="form-control input__password"
                                            value={confirmPassword}
                                            onChange={event => setConfirmPassword(event.target.value)}
-                                           id={'confirmPassword'}
+                                           id={'Confirm_password_input'}
                                     />
                                     {confirmPasswordError && confirmPasswordError.length > 1 ?
                                         <ErrorFormLittle error={confirmPasswordError}/>:null

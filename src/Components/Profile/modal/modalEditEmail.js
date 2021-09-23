@@ -2,9 +2,10 @@ import './bodyModal.scss';
 import {userConstants} from "../../../Constants/user/user.constants";
 import ErrorForm from "../../error/ErrorForm";
 import ErrorFormLittle from "../../error/ErrorFormLittle";
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {connect, useDispatch} from "react-redux";
 import {editUserEmail} from "../../../Redux/Actions/user.actions";
+import { verifyEmail } from "../../../Verify/verifyUser";
 
 export const ModalEditEmail = ({ handleCloseEmail, show, emailUser }) => {
     const showHideClassName = show ? "modal display-block" : "modal display-none";
@@ -14,23 +15,24 @@ export const ModalEditEmail = ({ handleCloseEmail, show, emailUser }) => {
     const [emailError, setEmailError] = useState('');
     const dispatch = useDispatch();
 
+    const mounted = useRef();
     useEffect(() => {
-        if(show) {
+        if(!mounted) { // componentDidMount logic
+
+        } else { // componentDidUpdate logic
+            if(showHideClassName === "modal display-none") {
+                setEmailError("");
+                setEmail("");
+            }
         }
     }, [show]);
 
     const handleSubmitEmail = (e) => {
         e.preventDefault();
-        let canSend = true;
-        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        let verifyMail = re.test(String(email).toLowerCase());
 
-        if(!verifyMail) {
-            setEmailError(userConstants.userError.EMAIL_ERROR);
-            canSend = false;
-        }
-
-        if(canSend) {
+        if(!verifyEmail(email).success) {
+            setEmailError(verifyEmail(email).errorMsg);
+        } else {
             dispatch(editUserEmail(email))
             setEmail("");
             setRedirection(true)
@@ -62,11 +64,11 @@ export const ModalEditEmail = ({ handleCloseEmail, show, emailUser }) => {
                             <div className="form-group">
 
                                 <div className={"box__nbr"}>
-                                    <label htmlFor={"email"} className={"title--modal mb-1"}>Email</label>
+                                    <label htmlFor={"email_input"} className={"title--modal mb-1"}>Email</label>
                                     <input type="text" className="form-control input__login"
                                            onChange={event => setEmail(event.target.value)}
                                            value={email}
-                                           id={'email'}
+                                           id={'email_input'}
                                     />
                                     {emailError && emailError.length > 1 ?
                                         <ErrorFormLittle error={emailError}/>:null

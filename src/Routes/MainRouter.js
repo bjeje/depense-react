@@ -11,6 +11,8 @@ import RegisterPage from "../Views/RegisterPage/registerPage";
 import LoginPage from "../Views/LoginPage/loginPage";
 import ProfilePage from "../Views/ProfilePage/profilePage";
 import VerifyEmailPage from "../Views/VerifyEmailPage/verifyEmailPage";
+import ForgotPassPage from "../Views/ForgotPassPage/forgotPassPage"
+import ResetPassPage from "../Views/ResetPassPage/resetPassPage";
 
 export default class MainRouter extends Component {
 
@@ -36,7 +38,8 @@ export default class MainRouter extends Component {
             <Fragment>
                 <Router>
                     {this.state.route === "/login" ? null : this.state.route === "/register" ? null :
-                        this.state.route === "/user/verifyEmail" ? null :
+                        this.state.route === "/user/verifyEmail" ? null : this.state.route === "/forgottenPassword" ? null :
+                        this.state.route === "/resetPassword" ? null :
                         <Navbar/>
                     }
                     <Switch>
@@ -44,6 +47,8 @@ export default class MainRouter extends Component {
                             <Route path="/register" component={RegisterPage}/>
                             <Route path="/login" component={LoginPage}/>
                             <Route path="/user/verifyEmail" component={VerifyEmailPage}/>
+                            <Route path="/forgottenPassword" component={ForgotPassPage}/>
+                            <Route path="/resetPassword" component={ResetPassPage}/>
                         {/* ROUTES REGISTER */}
                             <PrivateRouteUser exact path={"/user/profile"} component={ProfilePage}/>
                             <PrivateRouteUser exact path={"/"} component={ProfilePage}/>
