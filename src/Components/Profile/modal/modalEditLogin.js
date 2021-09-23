@@ -2,10 +2,11 @@ import './bodyModal.scss';
 import {userConstants} from "../../../Constants/user/user.constants";
 // import ErrorForm from "../../error/ErrorForm";
 import ErrorFormLittle from "../../error/ErrorFormLittle";
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import { connect } from "react-redux";
 import { useDispatch } from "react-redux";
-import {editUserLogin} from "../../../Redux/Actions/user.actions";
+import { editUserLogin } from "../../../Redux/Actions/user.actions";
+import { verifyLogin } from "../../../Verify/verifyUser";
 
 export const ModalEditLogin = ({ handleCloseLogin, show, userLogin }) => {
     const showHideClassName = show ? "modal display-block" : "modal display-none";
@@ -15,22 +16,24 @@ export const ModalEditLogin = ({ handleCloseLogin, show, userLogin }) => {
     const [loginError, setLoginError] = useState('');
     const dispatch = useDispatch();
 
+    const mounted = useRef();
     useEffect(() => {
-        if(show) {
+        if(!mounted) { // componentDidMount logic
 
+        } else { // componentDidUpdate logic
+            if(showHideClassName === "modal display-none") {
+                setLoginError("");
+                setLogin("");
+            }
         }
     }, [show]);
 
     const handleSubmitLogin = (e) => {
         e.preventDefault();
 
-        let canSend = true;
-        if(login.length < 6 || login.length > 100) {
-            setLoginError(userConstants.userError.LOGIN_ERROR);
-            canSend = false;
-        }
-
-        if(canSend) {
+        if(!verifyLogin(login).success) {
+            setLoginError(verifyLogin(login).errorMsg)
+        } else {
             dispatch(editUserLogin(login));
             setLogin("");
             setRedirection(true)
@@ -62,11 +65,11 @@ export const ModalEditLogin = ({ handleCloseLogin, show, userLogin }) => {
                                 <div className="form-group">
 
                                     <div className={"box__nbr"}>
-                                        <label htmlFor={"login"} className={"title--modal mb-1"}>Login</label>
+                                        <label htmlFor={"login_input"} className={"title--modal mb-1"}>Login</label>
                                         <input type="text" className="form-control input__login"
                                                onChange={event => setLogin(event.target.value)}
                                                value={login}
-                                               id={'login'}
+                                               id={'login_input'}
                                         />
                                         {loginError && loginError.length > 1 ?
                                             <ErrorFormLittle error={loginError}/>:null

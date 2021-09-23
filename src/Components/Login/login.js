@@ -97,12 +97,15 @@ class Login extends Component {
                                 <div className="row justify-content-center mt-4">
                                     <div className="col-8 pt-3 pb-3">
                                         <div className="form-floating mb-4">
-                                            <input type="login" className="form-control Login_input ps-0 pe-0" id="Login" placeholder="name@example.com" onChange={this.handleChangeLogin}/>
+                                            <input type="login" className="form-control Login_input ps-0 pe-0" id="Login" placeholder="login185" onChange={this.handleChangeLogin}/>
                                             <label htmlFor="Login" className="ps-0 pe-0 pt-0">Login</label>
                                         </div>
-                                        <div className="form-floating mb-4">
+                                        <div className="form-floating mb-2">
                                             <input type="password" className="form-control Login_input ps-0 pe-0" id="password" placeholder="• • • • • • • • •" onChange={this.handleChangePassword}/>
                                             <label htmlFor="password" className="ps-0 pe-0 pt-0">Mot de passe</label>
+                                            <div className={"text-end mt-3"}>
+                                                <Link to={"/forgottenPassword"} className={"forgotten__password"}>Mot de passe oublié ?</Link>
+                                            </div>
                                         </div>
                                     </div>
                                     {this.state.errorMsg.length > 0 ?

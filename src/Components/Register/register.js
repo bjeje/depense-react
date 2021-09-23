@@ -8,6 +8,20 @@ import {Environment} from "../../Constants/environment";
 import axios from "axios";
 import {userConstants} from "../../Constants/user/user.constants";
 import ValidForm from "../Valid/validForm";
+import {
+    verifyLogin,
+    verifyPassword,
+    comparePassword,
+    verifyFirstname,
+    verifyLastname,
+    verifyEmail,
+    validPassword,
+    validLogin,
+    validEmail,
+    validLastname,
+    validFirstname,
+    validBirthday
+} from "../../Verify/verifyUser";
 
 class Register extends Component {
 
@@ -46,7 +60,6 @@ class Register extends Component {
         this.handleChangeBirthday = this.handleChangeBirthday.bind(this);
         this.handleSubmitRegister = this.handleSubmitRegister.bind(this);
         this.validateForm = this.validateForm.bind(this);
-        this.validateEmail = this.validateEmail.bind(this);
     }
 
     handleChangeLogin(event) {
@@ -81,81 +94,9 @@ class Register extends Component {
         this.setState({birthday: event.target.value});
     }
 
-    displayTrue(inputID) {
-        let element = document.getElementById(inputID)
-        element.classList.add('is-valid');
-        element.classList.remove('is-invalid');
-    }
-
-    displayFalse(inputID) {
-        let element = document.getElementById(inputID)
-        element.classList.remove('is-valid');
-        element.classList.add('is-invalid');
-    }
-
-    validateEmail(email) {
-        const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        return re.test(String(email).toLowerCase());
-    }
-
-    validLogin(valid) {
-        if(!valid) {
-            this.displayFalse('Register_login');
-        } else {
-            this.displayTrue('Register_login');
-        }
-    }
-
-    validEmail(valid) {
-        if(!valid) {
-            this.displayFalse('Register_email');
-        } else {
-            this.displayTrue('Register_email');
-        }
-    }
-
-    validPassword(valid) {
-        if(!valid) {
-            this.displayFalse('Register_password')
-        } else {
-            this.displayTrue('Register_password');
-        }
-    }
-
-    validConfirmPassword(valid) {
-        if(!valid) {
-            this.displayFalse('Confirm_password')
-        } else {
-            this.displayTrue('Confirm_password');
-        }
-    }
-
-    validFirstname(valid) {
-        if(!valid) {
-            this.displayFalse('Register_firstName');
-        } else {
-            this.displayTrue('Register_firstName');
-        }
-    }
-
-    validLastname(valid) {
-        if(!valid) {
-            this.displayFalse('Register_lastName')
-        } else {
-            this.displayTrue('Register_lastName');
-        }
-    }
-
-    validBirthday(valid) {
-        if(!valid) {
-            this.displayFalse('Register_birthday');
-        } else {
-            this.displayTrue('Register_birthday')
-        }
-    }
-
     validateForm() {
-        let validate = {login: false, email: false, password: false, firstName: false, lastName: false};
+        let validate = {login: { success:false }, email: { success:false }, password: { success:false },
+            firstName: { success:false }, lastName: { success:false }};
 
         this.setState({ errorMsg: "" });
         this.setState({ errorLogin: "" });
@@ -167,82 +108,26 @@ class Register extends Component {
         this.setState({ errorLastname: "" });
         this.setState({ errorBirthday: "" });
 
-        if (this.state.login.length < 6 || this.state.login.length > 100) {
-            this.validLogin(false);
-            this.setState({ errorLogin: userConstants.userError.LOGIN_ERROR })
-            validate.login = false;
-        } else {
-            this.validLogin(true);
-            validate.login = true;
-        }
+        validate.login = verifyLogin(this.state.login)
+        if(!validate.login.success) this.setState({ errorLogin: validate.login.errorMsg })
 
-        if (!this.validateEmail(this.state.email)) {
-            this.validEmail(false);
-            this.setState({ errorEmail: userConstants.userError.EMAIL_ERROR });
-            validate.email = false;
-        } else {
-            this.validEmail(true);
-            validate.email = true;
-        }
-        if (this.state.password.length < 8 || this.state.password.length > 100) {
-            this.validPassword(false);
-            this.setState({ errorPassword: userConstants.userError.PASSWORD_ERROR_LENGHT });
-            validate.password = false;
-        } else {
-            this.validPassword(true);
-            validate.password = true;
-        }
+        validate.email = verifyEmail(this.state.email)
+        if(!validate.email.success) this.setState({ errorEmail: validate.email.errorMsg })
 
-        if (this.state.confirmPassword.length < 8 || this.state.confirmPassword.length > 100) {
-            this.validConfirmPassword(false);
-            this.setState({ errorConfirmPassword: userConstants.userError.PASSWORD_ERROR_LENGHT });
-            validate.confirmPassword = false;
-        } else {
-            this.validConfirmPassword(true);
-            validate.confirmPassword = true;
-        }
+        validate.password = verifyPassword(this.state.password)
+        if(!validate.password.success) this.setState({ errorPassword: validate.password.errorMsg })
 
-        if (this.state.confirmPassword !== this.state.password) {
-            this.validConfirmPassword(false);
-            this.setState({ errorConfirmPassword: userConstants.userError.PASSWORD_CONFIRM_ERROR });
-            validate.confirmPassword = false;
-        }
+        validate.confirmPassword = comparePassword(this.state.password, this.state.confirmPassword)
+        if(!validate.confirmPassword.success) this.setState({ errorConfirmPassword: validate.confirmPassword.errorMsg })
 
-        if (this.state.firstName.length < 2 || this.state.firstName.length > 100) {
-            this.validFirstname(false);
-            this.setState({ errorFirstname: userConstants.userError.FIRSTNAME_ERROR });
-            validate.firstName = false;
-        } else {
-            this.validFirstname(true);
-            validate.firstName = true;
-        }
-        if(this.state.lastName.length > 0) {
-            if (this.state.lastName.length < 2 || this.state.lastName > 100) {
-                this.validLastname(false);
-                this.setState({ errorLastname: userConstants.userError.LASTNAME_ERROR });
-                validate.lastName = false;
-            } else {
-                this.validLastname(true);
-                validate.lastName = true;
-            }
-        } else {
-            validate.lastName = true;
-        }
+        validate.firstName = verifyFirstname(this.state.firstName)
+        if(!validate.firstName.success) this.setState({ errorFirstname: validate.firstName.errorMsg })
 
-        if(this.state.birthday.length > 0) {
-            // if (!this.state.birth.length > 0) {
-            //     birthInput.classList.add("is-invalid");
-            //     birthInput.classList.remove("is-valid");
-            //     this.setState({ errorBirth: userConstants.userError.BIRTHDAY_ERROR });
-            //     validate.birth = false;
-            // } else {
-            //     birthInput.classList.remove("is-invalid");
-            //     birthInput.classList.add("is-valid");
-            //     validate.birth = true;
-            // }
-        }
-        return !(validate.login === false || validate.email === false || validate.password === false ||
-            validate.confirmPassword === false || validate.firstName === false || validate.lastName === false)
+        validate.lastName = verifyLastname(this.state.lastName)
+        if(!validate.lastName.success) this.setState({ errorLastname: validate.lastName.errorMsg })
+
+        return !(validate.login.success === false || validate.email.success === false || validate.password.success === false ||
+            validate.confirmPassword.success === false || validate.firstName.success === false || validate.lastName.success === false)
     }
 
     async handleSubmitRegister(event) {
@@ -276,27 +161,27 @@ class Register extends Component {
                     if(typeof error.response.data.type === "string") {
                         switch (error.response.data.type) {
                             case "login":
-                                this.validLogin(false);
+                                validLogin(false);
                                 this.setState({ errorLogin: error.response.data.error })
                                 break;
                             case "email":
-                                this.validEmail(false);
+                                validEmail(false);
                                 this.setState({ errorEmail: error.response.data.error })
                                 break;
                             case "password":
-                                this.validPassword(false);
+                                validPassword(false);
                                 this.setState({ errorPassword: error.response.data.error })
                                 break;
                             case "firstName":
-                                this.validFirstname(false);
+                                validFirstname(false);
                                 this.setState({ errorFirstname: error.response.data.error })
                                 break;
                             case "lastName":
-                                this.validLastname(false);
+                                validLastname(false);
                                 this.setState({ errorLastname: error.response.data.error })
                                 break;
                             case "birth":
-                                this.validBirthday(false);
+                                validBirthday(false);
                                 this.setState({ errorBirthday: error.response.data.error })
                                 break;
                             default:
@@ -304,8 +189,8 @@ class Register extends Component {
                         }
                     } else {
                         if(typeof error.response.data.type.login === "boolean" && typeof error.response.data.type.email === "boolean") {
-                            this.validLogin(false);
-                            this.validEmail(false);
+                            validLogin(false);
+                            validEmail(false);
                             this.setState({ errorLogin: userConstants.userError.LOGIN_EXIST });
                             this.setState({ errorEmail: userConstants.userError.EMAIL_EXIST });
                         } else {
@@ -336,29 +221,29 @@ class Register extends Component {
                                     <h1 className="h4 text-center register_label font_montserrat">Identifiants</h1>
                                     <div className="col-8 pt-3 pb-3">
                                         <div className="form-floating mb-4">
-                                            <input type="login" className="form-control Register_input ps-0 pe-0 " id="Register_login" placeholder="login" onChange={this.handleChangeLogin}/>
-                                            <label htmlFor="Register_login" className="register_label ps-0 pe-0 pt-0">Login <span className={"star"}>*</span></label>
+                                            <input type="text" className="form-control Global_input ps-0 pe-0 " id="login_input" placeholder="login" onChange={this.handleChangeLogin}/>
+                                            <label htmlFor="login_input" className="register_label ps-0 pe-0 pt-0">Login <span className={"star"}>*</span></label>
                                             {this.state.errorLogin.length > 0 ?
                                                 <ErrorFormLittle error={this.state.errorLogin}/> :null
                                             }
                                         </div>
                                         <div className="form-floating mb-4">
-                                            <input type="email" className="form-control Register_input ps-0 pe-0" id="Register_email" placeholder="name@example.com" onChange={this.handleChangeEmail}/>
-                                            <label htmlFor="Register_email" className="register_label  ps-0 pe-0 pt-0">Adresse e-mail <span className={"star"}>*</span></label>
-                                            {this.state.errorEmail.length > 0 ?
+                                            <input type="email" className="form-control Global_input ps-0 pe-0" id="email_input" placeholder="name@example.com" onChange={this.handleChangeEmail}/>
+                                            <label htmlFor="email_input" className="register_label  ps-0 pe-0 pt-0">Adresse e-mail <span className={"star"}>*</span></label>
+                                            {this.state.errorEmail && this.state.errorEmail.length > 0 ?
                                                 <ErrorFormLittle error={this.state.errorEmail}/> :null
                                             }
                                         </div>
                                         <div className="form-floating mb-4">
-                                            <input type="password" className="form-control Register_input ps-0 pe-0 " id="Register_password" placeholder="• • • • • • • • •" onChange={this.handleChangePassword}/>
-                                            <label htmlFor="Register_password" className="register_label ps-0 pe-0 pt-0">Mot de passe <span className={"star"}>*</span></label>
+                                            <input type="password" className="form-control Global_input ps-0 pe-0 " id="password_input" placeholder="• • • • • • • • •" onChange={this.handleChangePassword}/>
+                                            <label htmlFor="password_input" className="register_label ps-0 pe-0 pt-0">Mot de passe <span className={"star"}>*</span></label>
                                             {this.state.errorPassword.length > 0 ?
                                                 <ErrorFormLittle error={this.state.errorPassword}/> :null
                                             }
                                         </div>
                                         <div className="form-floating mb-4">
-                                            <input type="password" className="form-control Register_input ps-0 pe-0 " id="Confirm_password" placeholder="• • • • • • • • •" onChange={this.handleChangeConfirmPassword}/>
-                                            <label htmlFor="Confirm_password" className="register_label ps-0 pe-0 pt-0">Confirmer le mot de passe <span className={"star"}>*</span></label>
+                                            <input type="password" className="form-control Global_input ps-0 pe-0 " id="Confirm_password_input" placeholder="• • • • • • • • •" onChange={this.handleChangeConfirmPassword}/>
+                                            <label htmlFor="Confirm_password_input" className="register_label ps-0 pe-0 pt-0">Confirmer le mot de passe <span className={"star"}>*</span></label>
                                             {this.state.errorConfirmPassword.length > 0 ?
                                                 <ErrorFormLittle error={this.state.errorConfirmPassword}/> :null
                                             }
@@ -385,22 +270,22 @@ class Register extends Component {
                                             }
                                         </div>
                                         <div className="form-floating mb-4">
-                                            <input type="text" className="form-control Register_input ps-0 pe-0" id="Register_firstName" placeholder="Prénom" onChange={this.handleChangeFirstName}/>
-                                            <label htmlFor="Register_firstName" className="register_label font_montserrat ps-0 pe-0 pt-0">Prénom <span className={"star"}>*</span></label>
+                                            <input type="text" className="form-control Global_input ps-0 pe-0" id="firstname_input" placeholder="Prénom" onChange={this.handleChangeFirstName}/>
+                                            <label htmlFor="firstname_input" className="register_label font_montserrat ps-0 pe-0 pt-0">Prénom <span className={"star"}>*</span></label>
                                             {this.state.errorFirstname.length > 0 ?
                                                 <ErrorFormLittle error={this.state.errorFirstname}/> :null
                                             }
                                         </div>
                                         <div className="form-floating mb-4">
-                                            <input type="text" className="form-control Register_input ps-0 pe-0" id="Register_lastName" placeholder="Nom" onChange={this.handleChangeLastName}/>
-                                            <label htmlFor="Register_lastName" className="register_label ps-0 pe-0 pt-0">Nom</label>
+                                            <input type="text" className="form-control Global_input ps-0 pe-0" id="lastName_input" placeholder="Nom" onChange={this.handleChangeLastName}/>
+                                            <label htmlFor="lastname_input" className="register_label ps-0 pe-0 pt-0">Nom</label>
                                             {this.state.errorLastname.length > 0 ?
                                                 <ErrorFormLittle error={this.state.errorLastname}/> :null
                                             }
                                         </div>
                                         <div className="form-floating mb-4">
-                                            <input type="date" className="form-control Register_input ps-0 pe-0 mb-3" id="Register_birthday" onChange={this.handleChangeBirthday}/>
-                                            <label htmlFor="Register_birthday" className="register_label ps-0 pe-0 pt-0">Date de naissance</label>
+                                            <input type="date" className="form-control Global_input ps-0 pe-0 mb-3" id="birthday_input" onChange={this.handleChangeBirthday}/>
+                                            <label htmlFor="birthday_input" className="register_label ps-0 pe-0 pt-0">Date de naissance</label>
                                             {this.state.errorBirthday.length > 0 ?
                                                 <ErrorFormLittle error={this.state.errorBirthday}/> :null
                                             }
