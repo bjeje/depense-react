@@ -66,21 +66,18 @@ class VerifyEmail extends Component {
                         }
 
                         { this.state.verifiedEmail ?
-                                    <div className={"d-md-flex justify-content-center"}>
-                                        <h3 className={"mt-5 pt-1"}>Félicitation, votre email à bien été vérifié</h3>
-                                        <div className={"d-flex justify-content-center d-md-flex-none"}>
-                                            <Link className={"mt-3 mt-md-5  ms-md-3 verify_connectBtn"} to="/login">Se connecter</Link>
-                                        </div>
-                                    </div>:
-                                    <div className={"d-flex justify-content-center mt-5"}>
-                                        <ErrorForm error={this.state.error}/>
+                                <div className={"d-md-flex justify-content-center"}>
+                                    <h3 className={"mt-5 pt-1"}>Félicitation, votre email à bien été vérifié</h3>
+                                    <div className={"d-flex justify-content-center d-md-flex-none"}>
+                                        <Link className={"mt-3 mt-md-5  ms-md-3 verify_connectBtn"} to="/login">Se connecter</Link>
                                     </div>
+                                </div>:
+                                <div className={"d-flex justify-content-center mt-5"}>
+                                    <ErrorForm error={this.state.error}/>
+                                </div>
                         }
-
                     </div>
                 </div>
-
-
             </Fragment>
         )
     }

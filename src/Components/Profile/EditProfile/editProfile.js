@@ -13,6 +13,12 @@ import { ModalEditEmail } from "../modal/modalEditEmail";
 import {ModalEditPassword} from "../modal/modalEditPassword";
 import {userConstants} from "../../../Constants/user/user.constants";
 import ErrorForm from "../../error/ErrorForm";
+import {
+    verifyFirstname,
+    verifyLastname,
+    verifyBirthday,
+    displayNone,
+} from "../../../Verify/verifyUser";
 
 class EditProfile extends Component {
     constructor(props) {
@@ -46,56 +52,13 @@ class EditProfile extends Component {
         this.props.getUser();
     }
 
-    displayTrue(inputID) {
-        let element = document.getElementById(inputID)
-        element.classList.add('is-valid');
-        element.classList.remove('is-invalid');
-    }
-
-    displayFalse(inputID) {
-        let element = document.getElementById(inputID)
-        element.classList.remove('is-valid');
-        element.classList.add('is-invalid');
-    }
-
-    validFirstname(valid) {
-        if(!valid) {
-            this.displayFalse('firstname');
-        } else {
-            this.displayTrue('firstname');
-        }
-    }
-
-    validLastname(valid) {
-        if(!valid) {
-            this.displayFalse('lastname')
-        } else {
-            this.displayTrue('lastname');
-        }
-    }
-
-    validBirthday(valid) {
-        if(!valid) {
-            this.displayFalse('birthday');
-        } else {
-            this.displayTrue('birthday')
-        }
-    }
-
-    isDate(date) {
-        if(!(new Date(date) !== "Invalid Date") && !isNaN(new Date(date))) {
-            return { success: false }
-        } else {
-            return { success: true }
-        }
-    }
-
     showEditLogin = () => {
         this.setState({ showEditLogin: true });
     };
 
     hideEditLogin = () => {
         this.setState({ showEditLogin: false });
+        displayNone("login_input")
     };
 
     showEditEmail = () => {
@@ -104,6 +67,7 @@ class EditProfile extends Component {
 
     hideEditEmail = () => {
         this.setState({ showEditEmail: false });
+        displayNone("email_input")
     };
 
     showEditPassword = () => {
@@ -112,6 +76,8 @@ class EditProfile extends Component {
 
     hideEditPassword = () => {
         this.setState({ showEditPassword: false });
+        displayNone("password_input")
+        displayNone("Confirm_password_input")
     };
 
     handleChangeGender(e) {
@@ -134,7 +100,7 @@ class EditProfile extends Component {
     }
 
     validateFormEditPersonnal() {
-        let validate = {firstName: false, lastName: false ,birthday: false};
+        let validate = {firstName: { success: false }, lastName: { success: false } ,birthday: { success: false }};
 
         this.setState({ errorMsg: "" });
         this.setState({ errorGender: "" });
@@ -142,39 +108,16 @@ class EditProfile extends Component {
         this.setState({ errorLastname: "" });
         this.setState({ errorBirthday: "" });
 
-        if (this.state.firstName.length < 2 || this.state.firstName.length > 100) {
-            this.validFirstname(false);
-            this.setState({ errorFirstname: userConstants.userError.FIRSTNAME_ERROR });
-            validate.firstName = false;
-        } else {
-            this.validFirstname(true);
-            validate.firstName = true;
-        }
-        if(this.state.lastName.length > 0) {
-            if (this.state.lastName.length < 2 || this.state.lastName > 100) {
-                this.validLastname(false);
-                this.setState({ errorLastname: userConstants.userError.LASTNAME_ERROR });
-                validate.lastName = false;
-            } else {
-                this.validLastname(true);
-                validate.lastName = true;
-            }
-        } else {
-            validate.lastName = true;
-        }
+        validate.firstName = verifyFirstname(this.state.firstName)
+            if(!validate.firstName.success) this.setState({ errorFirstname: validate.firstName.errorMsg })
 
-        if(this.state.birthday.length > 0) {
-            let verifyBirthday = this.isDate(this.state.birthday);
-            if(!verifyBirthday.success) {
-                validate.birthday = false;
-            } else {
-                validate.birthday = true;
-            }
-        } else {
-            validate.birthday = true;
-        }
-        console.log(validate)
-        return !(validate.firstName === false || validate.lastName === false || validate.birthday === false)
+        validate.lastName = verifyLastname(this.state.lastName)
+            if(!validate.lastName.success) this.setState({ errorLastname: validate.lastName.errorMsg })
+
+        validate.birthday = verifyBirthday(this.state.birthday)
+            if(!validate.birthday.success) this.setState({ errorBirthday: validate.birthday.errorMsg })
+
+        return !(validate.firstName.success === false || validate.lastName.success === false || validate.birthday.success === false)
     }
 
     handleSubmitPersonnal(e) {
@@ -271,23 +214,23 @@ class EditProfile extends Component {
                                             </div>
                                         </div>
                                         <div className={"form-group mb-4"}>
-                                            <label htmlFor={"firstname"} className={"Edit_label ps-0 pe-0"}>Prénom <span className={"star"}>*</span></label>
-                                            <input type={"text"} id={"firstname"} className={"form-control Edit_input mt-1 ps-0 pe-0"} placeholder={"prénom"} value={this.state.firstName} onChange={this.handleChangeFirstname}/>
+                                            <label htmlFor={"firstname_input"} className={"Edit_label ps-0 pe-0"}>Prénom <span className={"star"}>*</span></label>
+                                            <input type={"text"} id={"firstname_input"} className={"form-control Edit_input mt-1 ps-0 pe-0"} placeholder={"prénom"} value={this.state.firstName} onChange={this.handleChangeFirstname}/>
                                             {this.state.errorFirstname.length > 0 ?
                                                 <ErrorFormLittle error={this.state.errorFirstname}/> :null
                                             }
                                         </div>
 
                                         <div className={"form-group mb-4"}>
-                                            <label htmlFor={"lastname"}>Nom </label>
-                                            <input type={"text"} id={"lastname"} className={"form-control Edit_input mt-1 ps-0 pe-0"} value={this.state.lastName} onChange={this.handleChangeLastname}/>
+                                            <label htmlFor={"lastname_input"}>Nom </label>
+                                            <input type={"text"} id={"lastname_input"} className={"form-control Edit_input mt-1 ps-0 pe-0"} value={this.state.lastName} onChange={this.handleChangeLastname}/>
                                             {this.state.errorLastname.length > 0 ?
                                                 <ErrorFormLittle error={this.state.errorLastname}/> :null
                                             }
                                         </div>
                                         <div className={"form-group mb-4"}>
-                                            <label htmlFor={"birthday"}>Date de naissance</label>
-                                            <input type={"date"} id={"birthday"} className={"form-control Edit_input mt-1 ps-0 pe-0"} value={this.state.birthday} onChange={this.handleChangeBirthday}/>
+                                            <label htmlFor={"birthday_input"}>Date de naissance</label>
+                                            <input type={"date"} id={"birthday_input"} className={"form-control Edit_input mt-1 ps-0 pe-0"} value={this.state.birthday} onChange={this.handleChangeBirthday}/>
                                             {this.state.errorBirthday.length > 0 ?
                                                 <ErrorFormLittle error={this.state.errorBirthday}/> :null
                                             }
@@ -297,10 +240,10 @@ class EditProfile extends Component {
                                         }
                                         <div className={"row justify-content-center"}>
                                             <button
-                                                className="btn btn--submit btn--edit btn--personnal"
+                                                className="btn btn-submit btn--edit btn--personnal"
                                                 type={"submit"}>Modifier
                                                 {this.props.isLoading ?
-                                                    <div className="spinner-border spinner-border-sm ms-2 mb-1 text-light" role="status">
+                                                    <div className="spinner-border spinner-border-sm ms-4 mb-1 text-light" role="status">
                                                         <span className="sr-only">Loading...</span>
                                                     </div> :null
                                                 }

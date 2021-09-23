@@ -32,6 +32,16 @@
 .Login_registerBtn:hover {
   color: $color-lightBlue;
 }
+
+.forgotten__password {
+  margin-right: 0.2em;
+  text-decoration: none !important;
+  color: #3f30ea;
+  &:hover {
+    color: $text-dark
+  }
+}
+
 .Login_input:-webkit-autofill,
 .Login_input:-webkit-autofill:hover,
 .Login_input:-webkit-autofill:focus,

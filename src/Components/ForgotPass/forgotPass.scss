@@ -1,0 +1,92 @@
+@import "src/Scss/Colors";
+
+.forgot_page {
+  background-color: $background-light;
+  background-position: center;
+  background-size: cover;
+  min-height: 100vh;
+  width: 100vw;
+}
+
+.box__forgot {
+  background-color: $background-verySoft;
+  border-radius: 3.5em;
+  margin: 10vh 0 !important;
+  max-width: 50em !important;
+  min-width: 18em;
+}
+
+.box__send {
+  padding: 15vh 0em !important;
+  @media screen and (max-width: 992px){
+    padding: 10vh 0em !important;
+  }
+}
+
+.comeBack {
+  color: $text-lightGreen !important;
+  font-size: 1.4em;
+  position: absolute;
+  top:32vh;
+  right: 30vw;
+  &:hover {
+    color: $color-darkGreen !important;
+  }
+  @media screen and (max-width: 1550px) {
+    right: 28vw;
+  }
+
+  @media screen and (max-width: 1400px) {
+    right: 21vw;
+  }
+
+  @media screen and (max-width: 1150px) {
+    right: 16.5vw;
+  }
+
+  @media screen and (max-width: 650px) {
+    top: 4.5em;
+    left: 85%;
+  }
+  @media screen and (max-width: 992px) {
+    top: 4.5em;
+    left: 77%;
+  }
+}
+
+.text--description {
+  font-weight: 500;
+}
+
+.bg__logo {
+  position: absolute;
+  top: 27vh;
+  left: 16vw;
+  width: 31em;
+  @media screen and (max-width: 1550px) {
+    left: 13vw;
+  }
+  @media screen and (max-width: 1250px) {
+    left: 10vw;
+  }
+  @media screen and (max-width: 1200px) {
+    left: 8vw;
+  }
+  @media screen and (max-width: 1150px) {
+    left: 3vw;
+    width: 30em;
+  }
+  @media screen and (max-width: 992px){
+    position: relative;
+    left: 0;
+    width: auto;
+    top: 5em;
+  }
+}
+
+.logo--forgot {
+  max-width: 30em;
+  @media screen and(max-width: 992px){
+    max-width: 25em;
+  }
+}

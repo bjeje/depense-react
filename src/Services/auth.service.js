@@ -14,7 +14,6 @@ class AuthService {
         } else {
             return false;
         }
-
     }
 
     getId() {

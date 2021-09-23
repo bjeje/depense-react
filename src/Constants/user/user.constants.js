@@ -2,6 +2,8 @@ export const userConstants = {
     userValid: {
         REGISTER_SUCCESS: "Enregistrement reussi",
         EMAIl_SEND: "Un email de validation vous a été envoyé",
+        EMAIL_FORGOT_SUCCESS: "Vérifier votre boite mail",
+        PASSWORD_CHANGE: "Votre mot de passe a été modifié"
     },
     userError: {
         LOGIN_ERROR: 'Login incorrect 6 à 100 caractères',
@@ -24,6 +26,8 @@ export const userConstants = {
         ADMIN_ERROR: 'Statut incorrect',
         SIGNUP_ERROR: 'Une erreur est survenue contacter l\'admin',
         SIGNIN_ERROR: 'Vos identifiants sont incorrect',
-        SIGNIN_EMPTY: 'Vous devez remplir Login et Mot de passe'
+        SIGNIN_EMPTY: 'Vous devez remplir Login et Mot de passe',
+        FORGET_ERROR: 'Votre email n\'a pas été envoyé',
+        RESET_ERROR: 'Votre mot de passe n\'a pas été mis à jour',
     },
 }

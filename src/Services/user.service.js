@@ -3,7 +3,7 @@ import {Environment} from "../Constants/environment";
 // import {GET_USER} from "../Redux/Constants/user.types";
 import AuthService from "./auth.service";
 
-const headers = {
+export const headers = {
     'Authorization': `Bearer ${AuthService.getCurrentAuth()}`
 }
 
