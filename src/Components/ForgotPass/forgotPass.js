@@ -33,6 +33,7 @@ export class ForgotPass extends Component {
 
     handleSubmit(e) {
         e.preventDefault()
+        this.setState({error: "", errorMsg: "", isLoading: false})
         let validate = { email: {success: false}}
         validate.email = verifyEmail(this.state.email)
         if(!validate.email.success) this.setState({ error: validate.email.errorMsg })
@@ -94,7 +95,7 @@ export class ForgotPass extends Component {
                                                     {this.state.success && this.state.send?
                                                         <ValidForm title={"Email envoyé"} message={userConstants.userValid.EMAIL_FORGOT_SUCCESS}/>: null
                                                     }
-                                                    {!this.state.success && this.state.send?
+                                                    {!this.state.success && this.state.send && this.state.errorMsg?
                                                         <ErrorForm error={this.state.errorMsg}/>: null
                                                     }
                                                     <div className={"d-flex justify-content-end"}>

@@ -68,6 +68,7 @@ class ResetPassword extends Component {
 
     handleSubmit(e) {
         e.preventDefault()
+        this.setState({errorNewPass: "", errorConfirmPass: ""})
         let valid = this.validateFormReset();
         if(valid) {
             let token = window.location.search;
