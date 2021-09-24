@@ -114,7 +114,7 @@ class Login extends Component {
                                         </div>:null
                                     }
                                     <div className="row justify-content-center mt-3 mb-3">
-                                        <button className="btn btn-default col-4 fs-5 btn-submit" onClick={this.handleSubmitLogin}>Se connecter</button>
+                                        <button className="btn col-4 fs-5 btn-submit" onClick={this.handleSubmitLogin}>Se connecter</button>
                                     </div>
                                 </div>
                             </div>

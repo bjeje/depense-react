@@ -302,7 +302,7 @@ class Register extends Component {
                                         </div>:null
                                     }
                                     <div className="row justify-content-center">
-                                        <button id={"btn__submit"} className="btn btn-default col-3 fs-5 btn-submit" onClick={this.handleSubmitRegister}>Valider
+                                        <button id={"btn__submit"} className="btn col-3 fs-5 btn-submit" onClick={this.handleSubmitRegister}>Valider
                                             {this.state.loader ?
                                                 <div className="spinner-border text-light ms-2" role="status">
                                                     <span className="sr-only">Loading...</span>

@@ -81,6 +81,7 @@
     min-width: 7.5em !important;
     max-width: 8.5em !important;
     background-color: $button-submit;
+    box-shadow: none !important;
     &:hover {
         background-color: $button-submit-hover;
     }
